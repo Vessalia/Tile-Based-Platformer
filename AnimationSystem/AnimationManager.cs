@@ -33,12 +33,6 @@ namespace TileBasedPlatformer.AnimationSystem
             sprite.Update(dt);
         }
 
-        public void Draw(SpriteBatch sb, Vector2 pos)
-        {
-            float scale = 2f / sprite.TextureRegion.Height;
-            sb.Draw(sprite, pos + new Vector2(1, 0) / 2, 0, new Vector2(scale, scale));
-        }
-
         public AnimatedSprite getCurrentSprite()
         {
             return sprite;

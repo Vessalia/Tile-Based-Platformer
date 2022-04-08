@@ -1,0 +1,84 @@
+{
+  "textureAtlas": {
+    "texture": "fireknight.png",
+    "regionWidth": 224,
+    "regionHeight": 112
+  },
+  "cycles": {
+    "idle": {
+      "frames": [0,1,2,3,4,5,6,7],
+      "isLooping": true,
+      "frameDuration": 0.08
+    },
+    "run": {
+      "frames": [28,29,30,31,32,33,34,35],
+      "isLooping": true,
+      "frameDuration": 0.08
+    },
+    "rising": {
+      "frames": [56,57,58],
+      "isLooping": true,
+      "frameDuration": 0.1
+    },
+    "falling": {
+      "frames": [84,85,86],
+      "isLooping": true,
+      "frameDuration": 0.1
+    },
+    "jump": {
+      "frames": [112,113,114],
+      "isLooping": false,
+      "frameDuration": 0.125
+    },
+    "jump_peak": {
+      "frames": [118,119,120,121,122],
+      "isLooping": false,
+      "frameDuration": 0.05
+    },
+    "land": {
+      "frames": [127,128,129,130,131],
+      "isLooping": false,
+      "frameDuration": 0.125
+    },
+    "roll": {
+      "frames": [140,141,142,143,144,145,146,147],
+      "isLooping": false,
+      "frameDuration": 0.06
+    },
+    "attack1": {
+      "frames": [168,169,170,171,172,173,174,175,176,177,178],
+      "isLooping": false,
+      "frameDuration": 0.075
+    },
+    "attack2": {
+      "frames": [203,204,205,206,207,208,209,210,211,212,213,214],
+      "isLooping": false,
+      "frameDuration": 0.07
+    },
+    "attack3": {
+      "frames": [242,243,244,244,245,246,247,248,249,250,251],
+      "isLooping": false,
+      "frameDuration": 0.08
+    },
+    "special": {
+      "frames": [252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269],
+      "isLooping": false,
+      "frameDuration": 0.075
+    },
+    "block": {
+      "frames": [280,281,282,283,284,285,286,287,288,289],
+      "isLooping": false,
+      "frameDuration": 0.07
+    },
+    "hit": {
+      "frames": [308,309,310,311,312,313],
+      "isLooping": false,
+      "frameDuration": 0.08
+    },
+    "death": {
+      "frames": [336,337,338,339,340,341,342,342,342,342,343,344,345,346,347,348],
+      "isLooping": false,
+      "frameDuration": 0.125
+    }
+  }
+}

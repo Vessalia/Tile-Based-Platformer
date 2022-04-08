@@ -1,8 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using MonoGame.Extended.Sprites;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.Entities;
 
@@ -10,7 +9,9 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
 {
     class PlayerIdleState : EntityState
     {
-        public PlayerIdleState(Player player, AnimationManager manager) : base(player, manager) 
+        private Player Player { get { return (Player)entity; } }
+
+        public PlayerIdleState(Player entity, AnimationManager manager) : base(entity, manager) 
         {
             manager.LoadContent("idle");
         }
@@ -19,12 +20,13 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
         {
             var sprite = manager.getCurrentSprite();
             float scale = 2f / sprite.TextureRegion.Height;
-            sb.Draw(sprite, pos + new Vector2(1, 0) / 2, 0, new Vector2(scale, scale));
+            sb.Draw(sprite, Player.Pos + new Vector2(1, 0) / 2, 0, new Vector2(scale, scale));
         }
 
         public override void Update(float dt)
         {
-            throw new NotImplementedException();
+            Player.vel = Vector2.Zero;
+            manager.Update(dt, "idle");
         }
     }
 }

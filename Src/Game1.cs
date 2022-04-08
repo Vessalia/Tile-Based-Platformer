@@ -66,13 +66,24 @@ namespace TileBasedPlatformer.Src
 
             _graphics.PreferredBackBufferWidth = (int)Constants.Screen.X;
             _graphics.PreferredBackBufferHeight = (int)Constants.Screen.Y;
+            _graphics.ApplyChanges();
 
             InitializeFiles();
 
             input = new Input();
 
             world = new World(worldString); 
-            
+
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            SpriteSheet spriteSheet = Content.Load<SpriteSheet>("fireknight.sf", new JsonContentLoader());
+            AnimationManager playerAnimManager = new AnimationManager(spriteSheet);
+
             Location spawnPos = Location.zero;
             for (int i = 0; i < world.GetDim().x; i++)
             {
@@ -86,19 +97,8 @@ namespace TileBasedPlatformer.Src
                     }
                 }
             }
-
-            player = new Player(spawnPos, new Vector2(1, 1));
-
+            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager);
             playerController = new PlayerController(player, input);
-
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            AnimationManager playerAnimManager = new AnimationManager(Content.Load<SpriteSheet>("fireknight.sf", new JsonContentLoader()));
-            player.SetAnimationManager(playerAnimManager);
         }
 
         protected override void Update(GameTime gameTime)

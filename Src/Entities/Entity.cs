@@ -14,20 +14,16 @@ namespace TileBasedPlatformer.Src
         public Vector2 Pos { get; protected set; }
         protected Vector2 dim;
 
-        public Entity(Vector2 initialPos, Vector2 dim)
+        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager)
         {
             Pos = initialPos;
             this.dim = dim;
+            this.animManager = animManager;
         }
 
         public Entity(float initialX, float initialY)
         {
             Pos = new Vector2(initialX, initialY);
-        }
-
-        public void SetAnimationManager(AnimationManager animManager)
-        {
-            this.animManager = animManager;
         }
 
         public void Update(float dt)
