@@ -1,0 +1,4 @@
+C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\obj\Debug\netcoreapp3.1\TileBasedPlatformer.csproj.AssemblyReference.cache
+C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\obj\Debug\netcoreapp3.1\TileBasedPlatformer.AssemblyInfoInputs.cache
+C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\obj\Debug\netcoreapp3.1\TileBasedPlatformer.AssemblyInfo.cs
+C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\obj\Debug\netcoreapp3.1\TileBasedPlatformer.csproj.CoreCompileInputs.cache
