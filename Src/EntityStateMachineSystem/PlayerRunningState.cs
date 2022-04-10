@@ -36,10 +36,10 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
         public override void Update(float dt)
         {
             HandleInput();
-            float spd = 1;
+            float spd = Player.speed;
             if(Player.IsFacingLeft())
             {
-                spd = -1;
+                spd *= -1;
             }
 
             Player.vel.X = spd;

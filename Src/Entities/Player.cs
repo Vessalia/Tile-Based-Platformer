@@ -12,8 +12,7 @@ namespace TileBasedPlatformer.Src.Entities
 {
     public class Player : Entity
     {
-        public Vector2 vel;
-        private float speed;
+        public float speed;
         private IInput input;
         private ConfigManager dataManager;
 
@@ -27,7 +26,12 @@ namespace TileBasedPlatformer.Src.Entities
 
             state = new PlayerIdleState(this, animManager);
             speed = 10;
-            vel *= speed;
+        }
+
+        public override void Update(float dt)
+        {
+            base.Update(dt);
+            
         }
 
         public void SetState(EntityState state)

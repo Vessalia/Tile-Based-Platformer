@@ -21,7 +21,32 @@ namespace TileBasedPlatformer.Src
 
         public static void Resolve(Entity entity, bool xCheck)
         {
-            Tile collisionTile = world.GetTile(entity.pos);
+            List<Tile> tiles = GetNeighbours(entity.pos, xCheck);
+            foreach (var tile in tiles)
+            {
+                TileReslove(entity, tile, xCheck);
+            }
+        }
+
+        private static List<Tile> GetNeighbours(Location pos, bool xCheck)
+        {
+            List<Tile> neighbours = new List<Tile>();
+            if(xCheck)
+            {
+                if(pos.x < world.GetDim().x) neighbours.Add(world.GetTile(new Location(pos.x + 1, pos.y)));
+            }
+            else
+            {
+                if(pos.y < world.GetDim().y) neighbours.Add(world.GetTile(new Location(pos.x, pos.y + 1)));
+                if(pos.y > 0) neighbours.Add(world.GetTile(new Location(pos.x, pos.y - 1)));
+            }
+            neighbours.Add(world.GetTile(new Location(pos.x, pos.y)));
+
+            return neighbours;
+        }
+
+        public static void TileReslove(Entity entity, Tile collisionTile, bool xCheck)
+        {
             if (collisionTile.Type != TileType.collider) return;
 
             RectangleF entityRect = new RectangleF(entity.pos.X, entity.pos.Y, entity.dim.X, entity.dim.Y);

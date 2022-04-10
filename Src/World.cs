@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace TileBasedPlatformer.Src
 {
@@ -57,6 +58,8 @@ namespace TileBasedPlatformer.Src
 
         public Tile GetTile(Location pos)
         {
+            Math.Clamp(pos.x, 0, dim.x);
+            Math.Clamp(pos.y, 0, dim.y);
             return world[pos.x, pos.y];
         }
 

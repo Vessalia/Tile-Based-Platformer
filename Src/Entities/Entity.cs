@@ -14,6 +14,7 @@ namespace TileBasedPlatformer.Src
 
         public Vector2 pos;
         public Vector2 dim;
+        public Vector2 vel;
 
         public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager)
         {
@@ -27,7 +28,7 @@ namespace TileBasedPlatformer.Src
             pos = new Vector2(initialX, initialY);
         }
 
-        public void Update(float dt)
+        public virtual void Update(float dt)
         {
             state.Update(dt);
         }
