@@ -8,7 +8,6 @@ using MonoGame.Extended.Sprites;
 using MonoGame.Extended.ViewportAdapters;
 using System.IO;
 using TileBasedPlatformer.AnimationSystem;
-using TileBasedPlatformer.Src.Controllers;
 using TileBasedPlatformer.Src.Entities;
 using TileBasedPlatformer.Src.FileManagment;
 using TileBasedPlatformer.Src.InputSystem;
@@ -25,8 +24,6 @@ namespace TileBasedPlatformer.Src
 
         private World world;
         private Player player;
-
-        private Controller playerController;
 
         public static Input input;
 
@@ -72,7 +69,8 @@ namespace TileBasedPlatformer.Src
 
             input = new Input();
 
-            world = new World(worldString); 
+            world = new World(worldString);
+            CollisionResolver.SetWorld(world);
 
             base.Initialize();
         }
@@ -97,8 +95,7 @@ namespace TileBasedPlatformer.Src
                     }
                 }
             }
-            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager);
-            playerController = new PlayerController(player, input);
+            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager, input);
         }
 
         protected override void Update(GameTime gameTime)
@@ -107,7 +104,6 @@ namespace TileBasedPlatformer.Src
                 Exit();
 
             input.Update();
-            playerController.HandleInput();
 
             float dt = gameTime.GetElapsedSeconds();
 

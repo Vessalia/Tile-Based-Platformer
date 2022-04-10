@@ -1,19 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.Text;
 using MonoGame.Extended.Sprites;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.Entities;
 
 namespace TileBasedPlatformer.Src.EntityStateMachineSystem
 {
-    class PlayerIdleState : EntityState
+    public class PlayerRunningState : EntityState
     {
         private Player Player { get { return (Player)entity; } }
 
-        public PlayerIdleState(Player entity, AnimationManager manager) : base(entity, manager) 
+        public PlayerRunningState(Player entity, AnimationManager manager) : base(entity, manager) 
         {
-            manager.LoadContent("idle");
+            manager.LoadContent("run");
         }
 
         public override void Draw(SpriteBatch sb)
@@ -34,34 +36,26 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
         public override void Update(float dt)
         {
             HandleInput();
-            Player.vel = Vector2.Zero;
-            manager.Update(dt, "idle");
+            float spd = 1;
+            if(Player.IsFacingLeft())
+            {
+                spd = -1;
+            }
+
+            Player.vel.X = spd;
+            Player.vel.Y = 0;
+
+            Player.pos += Player.vel * dt;
+            CollisionResolver.Resolve(Player, true);
+
+            manager.Update(dt, "run");
         }
 
         private void HandleInput()
         {
-            int dir = 0;
-            if (Player.IsInputDown("right"))
+            if((Player.IsInputUp("left") && Player.IsInputUp("right")) || (Player.IsInputDown("left") && Player.IsInputDown("right")))
             {
-                dir += 1;
-            }
-            if(Player.IsInputDown("left"))
-            {
-                dir -= 1;
-            }
-
-            if (dir == -1)
-            {
-                Player.SetFacingLeft(true);
-            }
-            else if (dir == 1)
-            {
-                Player.SetFacingLeft(false);
-            }
-
-            if(dir != 0)
-            {
-                Player.SetState(new PlayerRunningState(Player, manager));
+                Player.SetState(new PlayerIdleState(Player, manager));
             }
         }
     }

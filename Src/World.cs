@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TileBasedPlatformer.Src
 {
-    class World
+    public class World
     {
         private readonly Location dim;
         private readonly Tile[,] world;

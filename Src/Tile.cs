@@ -9,7 +9,7 @@ namespace TileBasedPlatformer.Src
         collider, ladder, spawn, win, empty
     }
 
-    class Tile
+    public class Tile
     {
         public Location Pos { get; private set; }
         public TileType Type { get; private set; } 
