@@ -21,47 +21,47 @@ namespace TileBasedPlatformer.Src
 
         public static void Resolve(Entity entity, bool xCheck)
         {
-            List<Tile> tiles = GetNeighbours(entity.pos, xCheck);
+            List<Tile> tiles = GetNeighbours(entity.pos);
             foreach (var tile in tiles)
             {
-                TileReslove(entity, tile, xCheck);
+                TileResolve(entity, tile, xCheck);
             }
         }
 
-        private static List<Tile> GetNeighbours(Location pos, bool xCheck)
+        private static List<Tile> GetNeighbours(Location pos)
         {
             List<Tile> neighbours = new List<Tile>();
-            if(xCheck)
+
+            for (int x = -1; x <= 1; x++)
             {
-                if(pos.x < world.GetDim().x) neighbours.Add(world.GetTile(new Location(pos.x + 1, pos.y)));
+                for(int y = -1; y <= 1; y++)
+                {
+                    neighbours.Add(world.GetTile(new Location(pos.x + x, pos.y + y)));
+                }
             }
-            else
-            {
-                if(pos.y < world.GetDim().y) neighbours.Add(world.GetTile(new Location(pos.x, pos.y + 1)));
-                if(pos.y > 0) neighbours.Add(world.GetTile(new Location(pos.x, pos.y - 1)));
-            }
-            neighbours.Add(world.GetTile(new Location(pos.x, pos.y)));
 
             return neighbours;
         }
 
-        public static void TileReslove(Entity entity, Tile collisionTile, bool xCheck)
+        public static void TileResolve(Entity entity, Tile collisionTile, bool xCheck)
         {
             if (collisionTile.Type != TileType.collider) return;
 
             RectangleF entityRect = new RectangleF(entity.pos.X, entity.pos.Y, entity.dim.X, entity.dim.Y);
             RectangleF worldRect = new RectangleF(collisionTile.Pos.x, collisionTile.Pos.y, 1, 1);
 
-            CollisionSide side = GetCollisionSide(worldRect, entityRect);
+            if (!entityRect.Intersects(worldRect)) return;
+
+            CollisionSide side = GetCollisionSide(entityRect, worldRect);
             if (xCheck)
             {
                 if (side == CollisionSide.Left)
                 {
-                    entity.pos.X = collisionTile.Pos.x + 1;
+                    entity.pos.X = collisionTile.Pos.x - entity.dim.X;
                 }
                 else if(side == CollisionSide.Right)
                 {
-                    entity.pos.X = collisionTile.Pos.x - entity.dim.X;
+                    entity.pos.X = collisionTile.Pos.x + 1;
                 }
             }
             else
@@ -70,9 +70,9 @@ namespace TileBasedPlatformer.Src
                 {
                     entity.pos.Y = collisionTile.Pos.y - 1;
                 }
-                else if(side == CollisionSide.Right)
+                else if(side == CollisionSide.Bottom)
                 {
-                    entity.pos.Y = collisionTile.Pos.y + entity.dim.X;
+                    entity.pos.Y = collisionTile.Pos.y + entity.dim.Y;
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace TileBasedPlatformer.Src
                 horizontalDif = r1.X + r1.Width - r0.X;
             }
 
-            if (isAbove)
+            if (!isAbove)
             {
                 verticalDif = r1.Y + r1.Height - r0.Y;
             }

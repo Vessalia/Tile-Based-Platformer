@@ -7,6 +7,7 @@ using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.EntityStateMachineSystem;
 using TileBasedPlatformer.Src.FileManagment;
 using TileBasedPlatformer.Src.InputSystem;
+using TileBasedPlatformer.Src.PhysicsSystems;
 
 namespace TileBasedPlatformer.Src.Entities
 {
@@ -31,6 +32,7 @@ namespace TileBasedPlatformer.Src.Entities
         public override void Update(float dt)
         {
             base.Update(dt);
+            //GravitySystem.Update(this, dt);
             
         }
 

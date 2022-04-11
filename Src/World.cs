@@ -58,8 +58,9 @@ namespace TileBasedPlatformer.Src
 
         public Tile GetTile(Location pos)
         {
-            Math.Clamp(pos.x, 0, dim.x);
-            Math.Clamp(pos.y, 0, dim.y);
+            pos.x = Math.Clamp(pos.x, 0, dim.x - 1);
+            pos.y = Math.Clamp(pos.y, 0, dim.y - 1);
+
             return world[pos.x, pos.y];
         }
 

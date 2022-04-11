@@ -36,17 +36,20 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
         public override void Update(float dt)
         {
             HandleInput();
-            float spd = Player.speed;
-            if(Player.IsFacingLeft())
+            float speed = Player.speed;
+            if (Player.IsFacingLeft())
             {
-                spd *= -1;
+                speed *= -1;
             }
 
-            Player.vel.X = spd;
+            Player.vel.X = speed;
             Player.vel.Y = 0;
 
-            Player.pos += Player.vel * dt;
+            Player.pos.X += Player.vel.X * dt;
             CollisionResolver.Resolve(Player, true);
+
+            Player.pos.Y += Player.vel.Y * dt;
+            CollisionResolver.Resolve(Player, false);
 
             manager.Update(dt, "run");
         }
@@ -56,6 +59,15 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
             if((Player.IsInputUp("left") && Player.IsInputUp("right")) || (Player.IsInputDown("left") && Player.IsInputDown("right")))
             {
                 Player.SetState(new PlayerIdleState(Player, manager));
+            }
+
+            if(Player.IsInputDown("right"))
+            {
+                Player.SetFacingLeft(false);
+            }
+            else if(Player.IsInputDown("left"))
+            {
+                Player.SetFacingLeft(true);
             }
         }
     }
