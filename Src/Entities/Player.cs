@@ -13,11 +13,10 @@ namespace TileBasedPlatformer.Src.Entities
 {
     public class Player : Entity
     {
-        public float speed;
         private IInput input;
         private ConfigManager dataManager;
 
-        public Player(Vector2 initialPos, Vector2 dim, AnimationManager animManager, IInput input) : base (initialPos, dim, animManager)
+        public Player(Vector2 initialPos, Vector2 dim, AnimationManager animManager, IInput input, float speed) : base (initialPos, dim, animManager, speed)
         {
             this.input = input;
 
@@ -26,19 +25,12 @@ namespace TileBasedPlatformer.Src.Entities
             dataManager = new ConfigManager(data);
 
             state = new PlayerIdleState(this, animManager);
-            speed = 10;
         }
 
         public override void Update(float dt)
         {
             base.Update(dt);
-            //GravitySystem.Update(this, dt);
-            
-        }
-
-        public void SetState(EntityState state)
-        {
-            this.state = state;
+            GravitySystem.Update(this, dt);
         }
 
         public bool IsInputJustPressed(string key)

@@ -95,7 +95,7 @@ namespace TileBasedPlatformer.Src
                     }
                 }
             }
-            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager, input);
+            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager, input, 10);
         }
 
         protected override void Update(GameTime gameTime)

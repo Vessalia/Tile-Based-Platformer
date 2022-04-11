@@ -9,8 +9,6 @@ namespace TileBasedPlatformer.Src
         private readonly Location dim;
         private readonly Tile[,] world;
 
-        private readonly Vector2 spawnPos;
-
         public World(string worldString)
         {
             string[] worldArray = worldString.Split("\n");

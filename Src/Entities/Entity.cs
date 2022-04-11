@@ -16,11 +16,17 @@ namespace TileBasedPlatformer.Src
         public Vector2 dim;
         public Vector2 vel;
 
-        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager)
+        public float speed;
+        public float terminalVel;
+
+        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed)
         {
             pos = initialPos;
             this.dim = dim;
             this.animManager = animManager;
+
+            this.speed = speed;
+            terminalVel = 15 * speed;
         }
 
         public Entity(float initialX, float initialY)

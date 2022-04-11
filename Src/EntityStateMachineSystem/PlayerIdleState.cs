@@ -14,6 +14,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
         public PlayerIdleState(Player entity, AnimationManager manager) : base(entity, manager) 
         {
             manager.LoadContent("idle");
+            Player.vel = Vector2.Zero;
         }
 
         public override void Draw(SpriteBatch sb)
@@ -34,7 +35,6 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
         public override void Update(float dt)
         {
             HandleInput();
-            Player.vel = Vector2.Zero;
             manager.Update(dt, "idle");
         }
 

@@ -43,13 +43,9 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
             }
 
             Player.vel.X = speed;
-            Player.vel.Y = 0;
 
             Player.pos.X += Player.vel.X * dt;
             CollisionResolver.Resolve(Player, true);
-
-            Player.pos.Y += Player.vel.Y * dt;
-            CollisionResolver.Resolve(Player, false);
 
             manager.Update(dt, "run");
         }
