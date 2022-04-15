@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 using TileBasedPlatformer.AnimationSystem;
-using TileBasedPlatformer.Src.EntityStateMachineSystem;
+using TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState;
 using TileBasedPlatformer.Src.FileManagment;
 using TileBasedPlatformer.Src.InputSystem;
 using TileBasedPlatformer.Src.PhysicsSystems;
@@ -27,10 +25,40 @@ namespace TileBasedPlatformer.Src.Entities
             state = new PlayerIdleState(this, animManager);
         }
 
+        public override void Draw(SpriteBatch sb)
+        {
+            var sprite = animManager.getCurrentSprite();
+            float scale = 2f / sprite.TextureRegion.Height;
+            if (facingLeft)
+            {
+                sprite.Effect = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
+                sprite.Effect = SpriteEffects.None;
+            }
+            sb.Draw(sprite, pos + new Vector2(1, 0) / 2, 0, new Vector2(scale, scale));
+        }
+
         public override void Update(float dt)
         {
             base.Update(dt);
             GravitySystem.Update(this, dt);
+        }
+
+        public int GetXDir()
+        {
+            int xDir = 0;
+            if (IsInputDown("right"))
+            {
+                xDir += 1;
+            }
+            if (IsInputDown("left"))
+            {
+                xDir -= 1;
+            }
+
+            return xDir;
         }
 
         public bool IsInputJustPressed(string key)

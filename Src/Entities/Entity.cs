@@ -26,8 +26,10 @@ namespace TileBasedPlatformer.Src
             this.animManager = animManager;
 
             this.speed = speed;
-            terminalVel = 15 * speed;
+            terminalVel = 5 * speed;
         }
+
+        public abstract void Draw(SpriteBatch sb);
 
         public Entity(float initialX, float initialY)
         {
@@ -37,11 +39,7 @@ namespace TileBasedPlatformer.Src
         public virtual void Update(float dt)
         {
             state.Update(dt);
-        }
-
-        public void Draw(SpriteBatch sb)
-        {
-            state.Draw(sb);
+            pos += vel * dt;
         }
 
         public void SetState(EntityState state)
@@ -57,6 +55,18 @@ namespace TileBasedPlatformer.Src
         public bool IsFacingLeft()
         {
             return facingLeft;
+        }
+
+        public void SetDir(int dir)
+        {
+            if (dir == -1)
+            {
+                facingLeft = true;
+            }
+            else if (dir == 1)
+            {
+                facingLeft = false;
+            }
         }
     }
 }

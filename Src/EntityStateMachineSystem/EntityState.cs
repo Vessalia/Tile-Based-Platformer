@@ -19,6 +19,5 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem
         }
 
         public abstract void Update(float dt);
-        public abstract void Draw(SpriteBatch sb);
     }
 }
