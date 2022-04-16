@@ -21,21 +21,24 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
         {
             HandleInput();
 
-            if (Player.vel.Y >= -0.2f && Player.vel.Y <= 0.2f)
+            if (Player.vel.Y >= -0.2f && Player.vel.Y <= 0.2f && !anim.Equals("jump_peak"))
             {
                 anim = "jump_peak";
                 manager.LoadContent(anim);
             }
-            else if (Player.vel.Y < 0.2f)
+            else if (Player.vel.Y < 0.2f && !anim.Equals("falling"))
             {
                 anim = "falling";
                 manager.LoadContent(anim);
             }
 
+            float epsilon = 0.001f;
+            Player.pos.Y += epsilon;
             if (CollisionResolver.Resolve(entity, false) == CollisionSide.Top)
             {
                 Player.SetState(new PlayerIdleState(Player, manager));
             }
+            Player.pos.Y -= epsilon;
 
             manager.Update(dt, anim);
         }
