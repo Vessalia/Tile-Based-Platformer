@@ -14,6 +14,8 @@ namespace TileBasedPlatformer.AnimationSystem
         private AnimatedSprite sprite;
         private SpriteSheet spriteSheet;
 
+        private string animName;
+
         public AnimationManager(SpriteSheet spriteSheet)
         {
             this.spriteSheet = spriteSheet;
@@ -25,17 +27,26 @@ namespace TileBasedPlatformer.AnimationSystem
             var transferSprite = new AnimatedSprite(spriteSheet);
             transferSprite.Play(animationName);
             sprite = transferSprite;
+            animName = animationName;
         }
 
         public void Update(float dt, string animationName)
         {
             sprite.Play(animationName);
+            animName = animationName;
             sprite.Update(dt);
         }
 
-        public AnimatedSprite getCurrentSprite()
+        public AnimatedSprite GetCurrentSprite()
         {
             return sprite;
+        }
+
+        public float GetAnimationDuration()
+        {
+            spriteSheet.Cycles.TryGetValue(animName, out var cycle);
+            int count = cycle.Frames.Count;
+            return cycle.FrameDuration * count;
         }
     }
 }

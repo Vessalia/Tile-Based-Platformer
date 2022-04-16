@@ -26,3 +26,4 @@ C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\bin\Debug\n
 C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
 C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
 C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
+C:\Users\Nathan\source\repos\TileBasedPlatformer\TileBasedPlatformer\obj\Debug\netcoreapp3.1\TileBasedPlatformer.GeneratedMSBuildEditorConfig.editorconfig

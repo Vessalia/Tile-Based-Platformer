@@ -27,7 +27,7 @@ namespace TileBasedPlatformer.Src.Entities
 
         public override void Draw(SpriteBatch sb)
         {
-            var sprite = animManager.getCurrentSprite();
+            var sprite = animManager.GetCurrentSprite();
             float scale = 2f / sprite.TextureRegion.Height;
             if (facingLeft)
             {

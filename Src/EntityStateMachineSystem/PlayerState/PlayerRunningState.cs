@@ -29,7 +29,6 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
 
             Player.vel.X = speed;
             Player.vel.Y = 0;
-            CollisionResolver.Resolve(Player, true);
 
             manager.Update(dt, "run");
         }

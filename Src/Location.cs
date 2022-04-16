@@ -24,7 +24,7 @@ namespace TileBasedPlatformer
 
         public static implicit operator Vector2(Location location) => new Vector2(location.x, location.y);
 
-        public static implicit operator Location(Vector2 vec) => new Location((int)vec.X, (int)vec.Y);
+        public static implicit operator Location(Vector2 vec) => new Location((int)Math.Round(vec.X), (int)Math.Round(vec.Y));
 
         public static bool operator ==(Location a, Location b)
         {

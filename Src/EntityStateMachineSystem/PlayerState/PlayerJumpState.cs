@@ -9,23 +9,26 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
     class PlayerJumpState : EntityState
     {
         private Player Player { get { return (Player)entity; } }
+        private float timer = 0;
 
         public PlayerJumpState(Player entity, AnimationManager manager) : base(entity, manager) 
         {
             manager.LoadContent("jump");
-            Player.vel.Y = -Player.speed;
+            Player.vel.Y = Player.speed;
         }
 
         public override void Update(float dt)
         {
             HandleInput();
-            manager.Update(dt, "jump");
-            if(Player.vel.Y <= 1)
-            {
-                Player.SetState(new PlayerIdleState(Player, manager));
-            }
 
-            CollisionResolver.Resolve(Player, true);
+            timer += dt;
+
+            manager.Update(dt, "jump");
+
+            if (timer > manager.GetAnimationDuration())
+            {
+                Player.SetState(new PlayerFreeFallState(Player, manager));
+            }
         }
 
         private void HandleInput()

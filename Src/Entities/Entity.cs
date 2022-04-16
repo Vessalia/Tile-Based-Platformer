@@ -39,7 +39,15 @@ namespace TileBasedPlatformer.Src
         public virtual void Update(float dt)
         {
             state.Update(dt);
-            pos += vel * dt;
+            int maxSteps = 10;
+            for (int step = 0; step < maxSteps; step++)
+            {
+                pos.X += vel.X * dt / maxSteps;
+                CollisionResolver.Resolve(this, true);
+
+                pos.Y -= vel.Y * dt / maxSteps;
+                CollisionResolver.Resolve(this, false);
+            }
         }
 
         public void SetState(EntityState state)

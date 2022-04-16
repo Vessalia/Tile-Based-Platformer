@@ -19,13 +19,33 @@ namespace TileBasedPlatformer.Src
     {
         private static World world;
 
-        public static void Resolve(Entity entity, bool xCheck)
+        public static CollisionSide? Resolve(Entity entity, bool xCheck)
         {
             List<Tile> tiles = GetNeighbours(entity.pos);
             foreach (var tile in tiles)
             {
-                TileResolve(entity, tile, xCheck);
+                var side = TileResolve(entity, tile, xCheck);
+                if(side != null)
+                {
+                    return side;
+                }
             }
+
+            return null;
+        }
+
+        public static bool isTouchingTop(Entity entity)
+        {
+            List<Tile> tiles = GetNeighbours(entity.pos);
+            foreach (var tile in tiles)
+            {
+                if(CheckTileSide(entity, tile) == CollisionSide.Top)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static List<Tile> GetNeighbours(Location pos)
@@ -43,16 +63,21 @@ namespace TileBasedPlatformer.Src
             return neighbours;
         }
 
-        public static void TileResolve(Entity entity, Tile collisionTile, bool xCheck)
+        private static CollisionSide? CheckTileSide(Entity entity, Tile collisionTile)
         {
-            if (collisionTile.Type != TileType.collider) return;
+            if (collisionTile.Type != TileType.collider) return null;
 
             RectangleF entityRect = new RectangleF(entity.pos.X, entity.pos.Y, entity.dim.X, entity.dim.Y);
             RectangleF worldRect = new RectangleF(collisionTile.Pos.x, collisionTile.Pos.y, 1, 1);
 
-            if (!entityRect.Intersects(worldRect)) return;
+            if (!entityRect.Intersects(worldRect)) return null;
+            return GetCollisionSide(entityRect, worldRect);
+        }
 
-            CollisionSide side = GetCollisionSide(entityRect, worldRect);
+        private static CollisionSide? TileResolve(Entity entity, Tile collisionTile, bool xCheck)
+        {
+            var side = CheckTileSide(entity, collisionTile);
+
             if (xCheck)
             {
                 if (side == CollisionSide.Left)
@@ -75,6 +100,8 @@ namespace TileBasedPlatformer.Src
                     entity.pos.Y = collisionTile.Pos.y + entity.dim.Y;
                 }
             }
+
+            return side;
         }
 
         static CollisionSide GetCollisionSide(RectangleF r0, RectangleF r1)

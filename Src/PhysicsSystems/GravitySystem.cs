@@ -10,10 +10,8 @@ namespace TileBasedPlatformer.Src.PhysicsSystems
 
         public static void Update(Entity entity, float dt)
         {
-            entity.vel.Y += gravity * dt;
+            entity.vel.Y -= gravity * dt;
             entity.vel.Y = Math.Clamp(entity.vel.Y, -entity.terminalVel, entity.terminalVel);
-            entity.pos.Y += entity.vel.Y * dt;
-            CollisionResolver.Resolve(entity, false);
         }
     }
 }
