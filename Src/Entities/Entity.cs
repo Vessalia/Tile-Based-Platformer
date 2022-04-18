@@ -26,7 +26,7 @@ namespace TileBasedPlatformer.Src
             this.animManager = animManager;
 
             this.speed = speed;
-            terminalVel = 5 * speed;
+            terminalVel = 2 * speed;
         }
 
         public abstract void Draw(SpriteBatch sb);
@@ -39,12 +39,15 @@ namespace TileBasedPlatformer.Src
         public virtual void Update(float dt)
         {
             state.Update(dt);
+
             int maxSteps = 10;
             for (int step = 0; step < maxSteps; step++)
             {
                 pos.X += vel.X * dt / maxSteps;
                 CollisionResolver.Resolve(this, true);
-
+            }
+            for(int step = 0; step < maxSteps; step++)
+            {
                 pos.Y -= vel.Y * dt / maxSteps;
                 CollisionResolver.Resolve(this, false);
             }

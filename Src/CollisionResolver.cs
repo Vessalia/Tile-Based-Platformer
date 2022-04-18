@@ -34,20 +34,6 @@ namespace TileBasedPlatformer.Src
             return null;
         }
 
-        public static bool isTouchingTop(Entity entity)
-        {
-            List<Tile> tiles = GetNeighbours(entity.pos);
-            foreach (var tile in tiles)
-            {
-                if(CheckTileSide(entity, tile) == CollisionSide.Top)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         private static List<Tile> GetNeighbours(Location pos)
         {
             List<Tile> neighbours = new List<Tile>();
@@ -94,10 +80,12 @@ namespace TileBasedPlatformer.Src
                 if (side == CollisionSide.Top)
                 {
                     entity.pos.Y = collisionTile.Pos.y - 1;
+                    entity.vel.Y = 0;
                 }
                 else if(side == CollisionSide.Bottom)
                 {
                     entity.pos.Y = collisionTile.Pos.y + entity.dim.Y;
+                    entity.vel.Y = 0;
                 }
             }
 

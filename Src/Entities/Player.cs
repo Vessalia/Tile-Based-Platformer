@@ -22,7 +22,7 @@ namespace TileBasedPlatformer.Src.Entities
             ConfigData data = fileManager.ReadData();
             dataManager = new ConfigManager(data);
 
-            state = new PlayerIdleState(this, animManager);
+            state = new PlayerRunningState(this, animManager);
         }
 
         public override void Draw(SpriteBatch sb)

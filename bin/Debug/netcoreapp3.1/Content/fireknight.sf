@@ -1,6 +1,6 @@
 {
   "textureAtlas": {
-    "texture": "fireknight.png",
+    "texture": "..\\..\\..\\..\\..\\OneDrive - University of Manitoba\\Desktop\\platformer_assets\\Elementals_fire_knight_basic_v1.0\\fireknight.png",
     "regionWidth": 224,
     "regionHeight": 112
   },
@@ -26,19 +26,19 @@
       "frameDuration": 0.1
     },
     "jump": {
-      "frames": [112,113,114],
+      "frames": [112,112,113],
       "isLooping": false,
-      "frameDuration": 0.125
+      "frameDuration": 0.09
     },
     "jump_peak": {
-      "frames": [118,119,120,121,122],
+      "frames": [119,120,121],
       "isLooping": false,
-      "frameDuration": 0.05
+      "frameDuration": 0.1
     },
     "land": {
-      "frames": [127,128,129,130,131],
+      "frames": [128,129,130,131],
       "isLooping": false,
-      "frameDuration": 0.125
+      "frameDuration": 0.1
     },
     "roll": {
       "frames": [140,141,142,143,144,145,146,147],

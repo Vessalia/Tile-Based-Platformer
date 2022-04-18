@@ -19,7 +19,6 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
 
         public override void Update(float dt)
         {
-            Player.vel = Vector2.Zero;
             HandleInput();
             manager.Update(dt, "idle");
         }
@@ -29,14 +28,13 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
             int dir = Player.GetXDir();
             Player.SetDir(dir);
 
-            if(dir != 0)
-            {
-                Player.SetState(new PlayerRunningState(Player, manager));
-            }
-
-            if(Player.IsInputDown("up"))
+            if (Player.IsInputDown("up"))
             {
                 Player.SetState(new PlayerJumpState(Player, manager));
+            }
+            else if (dir != 0)
+            {
+                Player.SetState(new PlayerRunningState(Player, manager));
             }
         }
     }

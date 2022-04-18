@@ -6,36 +6,28 @@ using TileBasedPlatformer.Src.Entities;
 
 namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
 {
-    class PlayerJumpState : EntityState
+    internal class PlayerLandingState : EntityState
     {
         private Player Player { get { return (Player)entity; } }
         private float timer = 0;
 
-        public PlayerJumpState(Player entity, AnimationManager manager) : base(entity, manager) 
+        public PlayerLandingState(Player entity, AnimationManager manager) : base(entity, manager)
         {
-            manager.LoadContent("jump");
+            manager.LoadContent("land");
             Player.vel.X = 0;
         }
 
         public override void Update(float dt)
         {
-            HandleInput();
-
             timer += dt;
 
-            manager.Update(dt, "jump");
+            manager.Update(dt, "land");
 
             if (timer > manager.GetAnimationDuration())
             {
-                Player.vel.Y = Player.speed;
-                Player.SetState(new PlayerFreeFallState(Player, manager));
+                Player.vel.Y = 0;
+                Player.SetState(new PlayerIdleState(Player, manager));
             }
-        }
-
-        private void HandleInput()
-        {
-            int dir = Player.GetXDir();
-            Player.SetDir(dir);
         }
     }
 }

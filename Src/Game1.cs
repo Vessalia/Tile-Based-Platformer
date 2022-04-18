@@ -23,7 +23,7 @@ namespace TileBasedPlatformer.Src
         OrthographicCamera camera;
 
         private World world;
-        private Player player;
+        private Entity player;
 
         public static Input input;
 
@@ -95,6 +95,7 @@ namespace TileBasedPlatformer.Src
                     }
                 }
             }
+
             player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager, input, 10);
         }
 

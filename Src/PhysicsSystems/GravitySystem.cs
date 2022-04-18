@@ -6,7 +6,7 @@ namespace TileBasedPlatformer.Src.PhysicsSystems
 {
     public static class GravitySystem
     {
-        private static float gravity = 5.0f;
+        private static float gravity = 20.0f;
 
         public static void Update(Entity entity, float dt)
         {

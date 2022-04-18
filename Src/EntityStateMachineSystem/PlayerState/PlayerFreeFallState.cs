@@ -10,6 +10,9 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
     {
         private Player Player { get { return (Player)entity; } }
         private string anim;
+        
+        private float timer = 0;
+        private bool finishedPeak = false;
         public PlayerFreeFallState(Player entity, AnimationManager manager) : base(entity, manager)
         {
             if (Player.vel.Y > 0) anim = "rising";
@@ -21,24 +24,39 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
         {
             HandleInput();
 
-            if (Player.vel.Y >= -0.2f && Player.vel.Y <= 0.2f && !anim.Equals("jump_peak"))
+            if (anim.Equals("jump_peak") && timer < manager.GetAnimationDuration())
+            {
+                timer += dt;
+                finishedPeak = true;
+            }
+
+            if (Player.vel.Y >= -2.0f && Player.vel.Y <= 2.0f && !anim.Equals("jump_peak") && !finishedPeak)
             {
                 anim = "jump_peak";
                 manager.LoadContent(anim);
             }
-            else if (Player.vel.Y < 0.2f && !anim.Equals("falling"))
+            else if (Player.vel.Y < 0.0f && !anim.Equals("falling"))
             {
                 anim = "falling";
                 manager.LoadContent(anim);
             }
 
+            float speed = 0;
+            if ((Player.IsInputDown("left") || Player.IsInputDown("right")) && !(Player.IsInputDown("left") && Player.IsInputDown("right")))
+            {
+                speed = Player.speed;
+                if (Player.IsFacingLeft())
+                {
+                    speed *= -1;
+                }
+            }
+
+            Player.vel.X = speed;
+
             float epsilon = 0.001f;
             Player.pos.Y += epsilon;
-            if (CollisionResolver.Resolve(entity, false) == CollisionSide.Top)
-            {
-                Player.SetState(new PlayerIdleState(Player, manager));
-            }
-            Player.pos.Y -= epsilon;
+            if (CollisionResolver.Resolve(entity, false) == CollisionSide.Top) Player.SetState(new PlayerLandingState(Player, manager));
+            else Player.pos.Y -= epsilon;
 
             manager.Update(dt, anim);
         }
