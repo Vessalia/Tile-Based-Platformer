@@ -13,6 +13,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
         
         private float timer = 0;
         private bool finishedPeak = false;
+
         public PlayerFreeFallState(Player entity, AnimationManager manager) : base(entity, manager)
         {
             if (Player.vel.Y > 0) anim = "rising";

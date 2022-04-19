@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TileBasedPlatformer.AnimationSystem;
+using TileBasedPlatformer.Src.CameraSystem;
 using TileBasedPlatformer.Src.EntityStateMachineSystem;
 
 namespace TileBasedPlatformer.Src
 {
-    public abstract class Entity
+    public abstract class Entity : ICameraTarget
     {
         protected bool facingLeft = false; 
         protected EntityState state;
@@ -18,6 +19,8 @@ namespace TileBasedPlatformer.Src
 
         public float speed;
         public float terminalVel;
+
+        public virtual Vector2 Pos => pos;
 
         public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed)
         {
