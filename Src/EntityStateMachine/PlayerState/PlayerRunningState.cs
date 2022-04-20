@@ -7,7 +7,7 @@ using MonoGame.Extended.Sprites;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.Entities;
 
-namespace TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState
+namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
 {
     public class PlayerRunningState : EntityState
     {

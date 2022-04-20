@@ -49,6 +49,9 @@ namespace TileBasedPlatformer.Src
                 case 'W':
                     type = TileType.win;
                     break;
+                case '1':
+                    type = TileType.slimeSpawn;
+                    break;
             }
 
             return new Tile(pos, type);

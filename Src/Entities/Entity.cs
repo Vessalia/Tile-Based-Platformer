@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.Sprites;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.CameraSystem;
-using TileBasedPlatformer.Src.EntityStateMachineSystem;
+using TileBasedPlatformer.Src.EntityStateMachine;
 
 namespace TileBasedPlatformer.Src
 {
@@ -20,9 +21,14 @@ namespace TileBasedPlatformer.Src
         public float speed;
         public float terminalVel;
 
+        private float scale;
+
+        private float drawXOffset;
+        private float drawYOffset;
+
         public virtual Vector2 Pos => pos;
 
-        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed)
+        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed, float scale, float drawXOffset = 0, float drawYOffset = 0)
         {
             pos = initialPos;
             this.dim = dim;
@@ -30,9 +36,27 @@ namespace TileBasedPlatformer.Src
 
             this.speed = speed;
             terminalVel = 2 * speed;
+
+            this.scale = scale;
+
+            this.drawXOffset = drawXOffset;
+            this.drawYOffset = drawYOffset;
         }
 
-        public abstract void Draw(SpriteBatch sb);
+        public void Draw(SpriteBatch sb)
+        {
+            var sprite = animManager.GetCurrentSprite();
+            float scale = this.scale / sprite.TextureRegion.Height;
+            if (facingLeft)
+            {
+                sprite.Effect = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
+                sprite.Effect = SpriteEffects.None;
+            }
+            sb.Draw(sprite, pos + new Vector2(dim.X + drawXOffset, drawYOffset) / 2, 0, new Vector2(scale, scale));
+        }
 
         public Entity(float initialX, float initialY)
         {

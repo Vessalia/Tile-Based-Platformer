@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.AnimationSystem;
 
-namespace TileBasedPlatformer.Src.EntityStateMachineSystem
+namespace TileBasedPlatformer.Src.EntityStateMachine
 {
     public abstract class EntityState
     {

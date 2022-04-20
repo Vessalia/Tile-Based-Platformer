@@ -6,7 +6,7 @@ namespace TileBasedPlatformer.Src
 {
     public enum TileType
     {
-        collider, ladder, spawn, win, empty
+        collider, ladder, spawn, win, empty, slimeSpawn
     }
 
     public class Tile
@@ -31,13 +31,17 @@ namespace TileBasedPlatformer.Src
             {
                 colour = Color.Green;
             }
+            else if (Type == TileType.win)
+            {
+                colour = Color.Yellow;
+            }
             else if (Type == TileType.spawn)
             {
                 colour = Color.Red;
             }
-            else if (Type == TileType.win)
+            else if (Type == TileType.slimeSpawn)
             {
-                colour = Color.Yellow;
+                colour = Color.White;
             }
 
             sb.FillRectangle(Pos.x, Pos.y, 1, 1, colour);

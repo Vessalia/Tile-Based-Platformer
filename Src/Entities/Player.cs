@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Sprites;
 using TileBasedPlatformer.AnimationSystem;
-using TileBasedPlatformer.Src.EntityStateMachineSystem.PlayerState;
+using TileBasedPlatformer.Src.EntityStateMachine.PlayerState;
 using TileBasedPlatformer.Src.FileManagment;
 using TileBasedPlatformer.Src.InputSystem;
 using TileBasedPlatformer.Src.PhysicsSystems;
@@ -17,7 +17,7 @@ namespace TileBasedPlatformer.Src.Entities
         private readonly Vector2 cameraShift = new Vector2(2, 0);
         public override Vector2 Pos => pos + (facingLeft ? -cameraShift : cameraShift);
 
-        public Player(Vector2 initialPos, Vector2 dim, AnimationManager animManager, IInput input, float speed) : base (initialPos, dim, animManager, speed)
+        public Player(Vector2 initialPos, Vector2 dim, AnimationManager animManager, IInput input, float speed, float scale) : base (initialPos, dim, animManager, speed, scale)
         {
             this.input = input;
 
@@ -25,22 +25,7 @@ namespace TileBasedPlatformer.Src.Entities
             ConfigData data = fileManager.ReadData();
             dataManager = new ConfigManager(data);
 
-            state = new PlayerRunningState(this, animManager);
-        }
-
-        public override void Draw(SpriteBatch sb)
-        {
-            var sprite = animManager.GetCurrentSprite();
-            float scale = 2f / sprite.TextureRegion.Height;
-            if (facingLeft)
-            {
-                sprite.Effect = SpriteEffects.FlipHorizontally;
-            }
-            else
-            {
-                sprite.Effect = SpriteEffects.None;
-            }
-            sb.Draw(sprite, pos + new Vector2(1, 0) / 2, 0, new Vector2(scale, scale));
+            state = new PlayerIdleState(this, animManager);
         }
 
         public override void Update(float dt)

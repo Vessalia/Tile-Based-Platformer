@@ -6,6 +6,8 @@ using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.ViewportAdapters;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.CameraSystem;
@@ -26,6 +28,8 @@ namespace TileBasedPlatformer.Src
         private World world;
         private Entity player;
 
+        private List<Entity> enemies = new List<Entity>();
+
         public static Input input;
 
         private string worldString =
@@ -41,13 +45,13 @@ namespace TileBasedPlatformer.Src
             "#...##############.......#...#\n" +
             "#........................#...#\n" +
             "#........................#...#\n" +
-            "#.....................####...#\n" +
+            "#...........1.........####...#\n" +
             "#.......H#########...........#\n" +
             "#.......H....................#\n" +
             "#.......H....................#\n" +
-            "#.......H....................#\n" +
+            "#.......H......1......1......#\n" +
             "#....####....####....####....#\n" +
-            "#.S..........................#\n" +
+            "#.S........................1.#\n" +
             "##############################"   ;
 
         public Game1()
@@ -83,7 +87,16 @@ namespace TileBasedPlatformer.Src
             SpriteSheet spriteSheet = Content.Load<SpriteSheet>("fireknight.sf", new JsonContentLoader());
             AnimationManager playerAnimManager = new AnimationManager(spriteSheet);
 
+            SpriteSheet slimeSpriteSheet = Content.Load<SpriteSheet>("slime-Sheet.sf", new JsonContentLoader());
+            List<AnimationManager> slimeAnimManagers = new List<AnimationManager>();
+            int numSlimes = 3;
+            for(int i = 0; i < numSlimes; i++)
+            {
+                slimeAnimManagers.Add(new AnimationManager(slimeSpriteSheet));
+            }
+
             Location spawnPos = Location.zero;
+            List<Location> slimeSpawnPos = new List<Location>();
             for (int i = 0; i < world.GetDim().x; i++)
             {
                 for (int j = 0; j < world.GetDim().y; j++)
@@ -92,13 +105,30 @@ namespace TileBasedPlatformer.Src
                     if (tile.Type == TileType.spawn)
                     {
                         spawnPos = tile.Pos;
-                        break;
+                    }
+                    else if(tile.Type == TileType.slimeSpawn)
+                    {
+                        slimeSpawnPos.Add(tile.Pos);
                     }
                 }
             }
 
-            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager, input, 10);
+            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager, input, 10, 2);
             cameraController.AddTargets(player);
+
+            Random slimeSpawnIdx = new Random();
+            foreach (var slimeAnimManager in slimeAnimManagers)
+            {
+                int idx = slimeSpawnIdx.Next(slimeSpawnPos.Count);
+                float slimeScale = 0.7f;
+                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(1, 1), slimeAnimManager, 5, slimeScale, 0, 1 / slimeScale));
+                slimeSpawnPos.RemoveAt(idx);
+            }
+
+            foreach (var enemy in enemies)
+            {
+                //cameraController.AddTargets(enemy);
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -113,6 +143,11 @@ namespace TileBasedPlatformer.Src
             cameraController.Update(dt);
 
             player.Update(dt);
+
+            foreach(var enemy in enemies)
+            {
+                enemy.Update(dt);
+            }
 
             base.Update(gameTime);
         }
@@ -132,6 +167,11 @@ namespace TileBasedPlatformer.Src
             }
 
             player.Draw(_spriteBatch);
+
+            foreach(var enemy in enemies)
+            {
+                enemy.Draw(_spriteBatch);
+            }
 
             _spriteBatch.End();
 

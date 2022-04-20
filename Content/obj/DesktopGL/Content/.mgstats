@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/Nathan/source/repos/TileBasedPlatformer/TileBasedPlatformer/Content/fireknight.png","C:/Users/Nathan/source/repos/TileBasedPlatformer/TileBasedPlatformer/Content/bin/DesktopGL/Content/fireknight.xnb","TextureProcessor","Texture2DContent",241689,36528213,0.989484
+"C:/Users/Nathan/source/repos/TileBasedPlatformer/TileBasedPlatformer/Content/slime-Sheet.png","C:/Users/Nathan/source/repos/TileBasedPlatformer/TileBasedPlatformer/Content/bin/DesktopGL/Content/slime-Sheet.xnb","TextureProcessor","Texture2DContent",2967,76885,0.1529709
