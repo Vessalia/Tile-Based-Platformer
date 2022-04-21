@@ -41,5 +41,15 @@ namespace TileBasedPlatformer.Src.CameraSystem
                                            (Vector2)Constants.WorldSpace / (2 * Camera.Zoom) - (Vector2)Constants.WorldSpace / 2,
                                            (Vector2)Constants.WorldSpace - (Vector2)Constants.WorldSpace / 2 - ((Vector2)Constants.WorldSpace - (Vector2)Constants.WorldSpace / 2) / Camera.Zoom);
         }
+
+        public void ZoomIn(float dt)
+        {
+            if (Camera.Zoom + 4 * dt < Camera.MaximumZoom) Camera.Zoom += 4 * dt;
+        }
+
+        public void ZoomOut(float dt)
+        {
+            if(Camera.Zoom - 4 * dt > Camera.MinimumZoom) Camera.Zoom -= 4 * dt;
+        }
     }
 }

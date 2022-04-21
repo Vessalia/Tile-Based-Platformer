@@ -38,9 +38,9 @@ namespace TileBasedPlatformer.Src
         {
             List<Tile> neighbours = new List<Tile>();
 
-            for (int x = 0; x < entity.dim.x; x++)
+            for (int x = 0; x < (int)Math.Round(entity.dim.X); x++)
             {
-                for(int y = 0; y < entity.dim.y; y++)
+                for(int y = 0; y < (int)Math.Round(entity.dim.Y); y++)
                 {
                     List<Tile> tileNeighbours = GetTileNeighbours((Location)entity.pos + new Location(x, y));
                     foreach(var tile in tileNeighbours)
@@ -75,7 +75,7 @@ namespace TileBasedPlatformer.Src
         {
             if (collisionTile.Type != TileType.collider) return null;
 
-            RectangleF entityRect = new RectangleF(entity.pos.X, entity.pos.Y, entity.dim.x, entity.dim.y);
+            RectangleF entityRect = new RectangleF(entity.pos.X, entity.pos.Y, entity.dim.X, entity.dim.Y);
             RectangleF worldRect = new RectangleF(collisionTile.Pos.x, collisionTile.Pos.y, 1, 1);
 
             if (!entityRect.Intersects(worldRect)) return null;
@@ -90,7 +90,7 @@ namespace TileBasedPlatformer.Src
             {
                 if (side == CollisionSide.Left)
                 {
-                    entity.pos.X = collisionTile.Pos.x - entity.dim.x;
+                    entity.pos.X = collisionTile.Pos.x - entity.dim.X;
                 }
                 else if(side == CollisionSide.Right)
                 {
@@ -101,12 +101,12 @@ namespace TileBasedPlatformer.Src
             {
                 if (side == CollisionSide.Top)
                 {
-                    entity.pos.Y = collisionTile.Pos.y - entity.dim.y;
+                    entity.pos.Y = collisionTile.Pos.y - entity.dim.Y;
                     entity.vel.Y = 0;
                 }
                 else if(side == CollisionSide.Bottom)
                 {
-                    entity.pos.Y = collisionTile.Pos.y + entity.dim.y;
+                    entity.pos.Y = collisionTile.Pos.y + entity.dim.Y;
                     entity.vel.Y = 0;
                 }
             }

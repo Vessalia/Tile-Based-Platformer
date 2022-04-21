@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Sprites;
+using System;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.CameraSystem;
 using TileBasedPlatformer.Src.EntityStateMachine;
@@ -16,19 +17,16 @@ namespace TileBasedPlatformer.Src
 
         public Vector2 pos;
         public Vector2 vel;
-        public Location dim;
+        public Vector2 dim;
 
         public float speed;
         public float terminalVel;
 
-        private float scale;
-
-        private float drawXOffset;
-        private float drawYOffset;
+        protected float scale;
 
         public virtual Vector2 Pos => pos;
 
-        public Entity(Vector2 initialPos, Location dim, AnimationManager animManager, float speed, float scale, float drawXOffset = 0, float drawYOffset = 0)
+        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed, float scale = -1)
         {
             pos = initialPos;
             this.dim = dim;
@@ -37,16 +35,14 @@ namespace TileBasedPlatformer.Src
             this.speed = speed;
             terminalVel = 2 * speed;
 
-            this.scale = scale;
-
-            this.drawXOffset = drawXOffset;
-            this.drawYOffset = drawYOffset;
+            if (scale == -1) this.scale = dim.X;
+            else this.scale = scale;
         }
 
         public void Draw(SpriteBatch sb)
         {
             var sprite = animManager.GetCurrentSprite();
-            float scale = this.scale / sprite.TextureRegion.Height;
+            float scale = this.scale / sprite.TextureRegion.Width;
             if (facingLeft)
             {
                 sprite.Effect = SpriteEffects.FlipHorizontally;
@@ -55,7 +51,10 @@ namespace TileBasedPlatformer.Src
             {
                 sprite.Effect = SpriteEffects.None;
             }
-            sb.Draw(sprite, pos + new Vector2(dim.x + drawXOffset, drawYOffset) / 2, 0, new Vector2(scale, scale));
+
+            Texture2D texture = sprite.TextureRegion.Texture;
+            Rectangle bounds = sprite.TextureRegion.Bounds;
+            sb.Draw(texture, pos + new Vector2(1, 2) / 2, bounds, sprite.Color * sprite.Alpha, 0, sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, scale, sprite.Effect, sprite.Depth);
         }
 
         public Entity(float initialX, float initialY)

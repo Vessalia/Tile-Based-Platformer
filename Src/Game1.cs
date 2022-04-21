@@ -47,10 +47,10 @@ namespace TileBasedPlatformer.Src
             "#........................#...#\n" +
             "#...........1.........####...#\n" +
             "#.......H#########...........#\n" +
-            "#.......H....................#\n" +
+            "#..S....H....................#\n" +
             "#.......H....................#\n" +
             "#.......H......1......1......#\n" +
-            "#..S.####....####....####....#\n" +
+            "#....####....####....####....#\n" +
             "#..........................1.#\n" +
             "##############################"   ;
 
@@ -113,15 +113,14 @@ namespace TileBasedPlatformer.Src
                 }
             }
 
-            player = new Player(spawnPos, new Location(1, 1), playerAnimManager, input, 10, 4);
+            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager, input, 10, 4);
             cameraController.AddTargets(player);
 
             Random slimeSpawnIdx = new Random();
             foreach (var slimeAnimManager in slimeAnimManagers)
             {
                 int idx = slimeSpawnIdx.Next(slimeSpawnPos.Count);
-                float slimeScale = 0.7f;
-                enemies.Add(new Enemy(slimeSpawnPos[idx], new Location(1, 1), slimeAnimManager, 5, slimeScale, 0, 1 / slimeScale));
+                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(0.35f, 0.35f), slimeAnimManager, 5));
                 slimeSpawnPos.RemoveAt(idx);
             }
 
@@ -141,6 +140,15 @@ namespace TileBasedPlatformer.Src
             float dt = gameTime.GetElapsedSeconds();
 
             cameraController.Update(dt);
+
+            if (input.IsKeyDown(Keys.LeftShift))
+            {
+                cameraController.ZoomIn(dt);
+            }
+            else if (input.IsKeyDown(Keys.LeftControl))
+            {
+                cameraController.ZoomOut(dt);
+            }
 
             player.Update(dt);
 
