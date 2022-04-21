@@ -21,7 +21,7 @@ namespace TileBasedPlatformer.Src
 
         public static CollisionSide? Resolve(Entity entity, bool xCheck)
         {
-            List<Tile> tiles = GetNeighbours(entity.pos);
+            List<Tile> tiles = GetEntityNeighbours(entity);
             foreach (var tile in tiles)
             {
                 var side = TileResolve(entity, tile, xCheck);
@@ -34,7 +34,29 @@ namespace TileBasedPlatformer.Src
             return null;
         }
 
-        private static List<Tile> GetNeighbours(Location pos)
+        private static List<Tile> GetEntityNeighbours(Entity entity)
+        {
+            List<Tile> neighbours = new List<Tile>();
+
+            for (int x = 0; x < entity.dim.x; x++)
+            {
+                for(int y = 0; y < entity.dim.y; y++)
+                {
+                    List<Tile> tileNeighbours = GetTileNeighbours((Location)entity.pos + new Location(x, y));
+                    foreach(var tile in tileNeighbours)
+                    {
+                        if(!neighbours.Contains(tile))
+                        {
+                            neighbours.Add(tile);
+                        }
+                    }
+                }
+            }
+
+            return neighbours;
+        }
+
+        private static List<Tile> GetTileNeighbours(Location pos)
         {
             List<Tile> neighbours = new List<Tile>();
 
@@ -53,7 +75,7 @@ namespace TileBasedPlatformer.Src
         {
             if (collisionTile.Type != TileType.collider) return null;
 
-            RectangleF entityRect = new RectangleF(entity.pos.X, entity.pos.Y, entity.dim.X, entity.dim.Y);
+            RectangleF entityRect = new RectangleF(entity.pos.X, entity.pos.Y, entity.dim.x, entity.dim.y);
             RectangleF worldRect = new RectangleF(collisionTile.Pos.x, collisionTile.Pos.y, 1, 1);
 
             if (!entityRect.Intersects(worldRect)) return null;
@@ -68,7 +90,7 @@ namespace TileBasedPlatformer.Src
             {
                 if (side == CollisionSide.Left)
                 {
-                    entity.pos.X = collisionTile.Pos.x - entity.dim.X;
+                    entity.pos.X = collisionTile.Pos.x - entity.dim.x;
                 }
                 else if(side == CollisionSide.Right)
                 {
@@ -79,12 +101,12 @@ namespace TileBasedPlatformer.Src
             {
                 if (side == CollisionSide.Top)
                 {
-                    entity.pos.Y = collisionTile.Pos.y - 1;
+                    entity.pos.Y = collisionTile.Pos.y - entity.dim.y;
                     entity.vel.Y = 0;
                 }
                 else if(side == CollisionSide.Bottom)
                 {
-                    entity.pos.Y = collisionTile.Pos.y + entity.dim.Y;
+                    entity.pos.Y = collisionTile.Pos.y + entity.dim.y;
                     entity.vel.Y = 0;
                 }
             }

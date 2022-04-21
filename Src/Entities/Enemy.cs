@@ -10,7 +10,7 @@ namespace TileBasedPlatformer.Src.Entities
 {
     internal class Enemy : Entity
     {
-        public Enemy(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed, float scale, float drawXOffset, float drawYOffset) 
+        public Enemy(Vector2 initialPos, Location dim, AnimationManager animManager, float speed, float scale, float drawXOffset, float drawYOffset) 
             : base(initialPos, dim, animManager, speed, scale, drawXOffset, drawYOffset)
         {
             state = new EnemyIdleState(this, animManager);

@@ -17,7 +17,7 @@ namespace TileBasedPlatformer.Src.Entities
         private readonly Vector2 cameraShift = new Vector2(2, 0);
         public override Vector2 Pos => pos + (facingLeft ? -cameraShift : cameraShift);
 
-        public Player(Vector2 initialPos, Vector2 dim, AnimationManager animManager, IInput input, float speed, float scale) : base (initialPos, dim, animManager, speed, scale)
+        public Player(Vector2 initialPos, Location dim, AnimationManager animManager, IInput input, float speed, float scale) : base (initialPos, dim, animManager, speed, scale)
         {
             this.input = input;
 

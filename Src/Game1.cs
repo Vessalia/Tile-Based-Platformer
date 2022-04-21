@@ -50,8 +50,8 @@ namespace TileBasedPlatformer.Src
             "#.......H....................#\n" +
             "#.......H....................#\n" +
             "#.......H......1......1......#\n" +
-            "#....####....####....####....#\n" +
-            "#.S........................1.#\n" +
+            "#..S.####....####....####....#\n" +
+            "#..........................1.#\n" +
             "##############################"   ;
 
         public Game1()
@@ -113,7 +113,7 @@ namespace TileBasedPlatformer.Src
                 }
             }
 
-            player = new Player(spawnPos, new Vector2(1, 1), playerAnimManager, input, 10, 2);
+            player = new Player(spawnPos, new Location(1, 1), playerAnimManager, input, 10, 4);
             cameraController.AddTargets(player);
 
             Random slimeSpawnIdx = new Random();
@@ -121,7 +121,7 @@ namespace TileBasedPlatformer.Src
             {
                 int idx = slimeSpawnIdx.Next(slimeSpawnPos.Count);
                 float slimeScale = 0.7f;
-                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(1, 1), slimeAnimManager, 5, slimeScale, 0, 1 / slimeScale));
+                enemies.Add(new Enemy(slimeSpawnPos[idx], new Location(1, 1), slimeAnimManager, 5, slimeScale, 0, 1 / slimeScale));
                 slimeSpawnPos.RemoveAt(idx);
             }
 

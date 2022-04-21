@@ -15,8 +15,8 @@ namespace TileBasedPlatformer.Src
         protected AnimationManager animManager;
 
         public Vector2 pos;
-        public Vector2 dim;
         public Vector2 vel;
+        public Location dim;
 
         public float speed;
         public float terminalVel;
@@ -28,7 +28,7 @@ namespace TileBasedPlatformer.Src
 
         public virtual Vector2 Pos => pos;
 
-        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed, float scale, float drawXOffset = 0, float drawYOffset = 0)
+        public Entity(Vector2 initialPos, Location dim, AnimationManager animManager, float speed, float scale, float drawXOffset = 0, float drawYOffset = 0)
         {
             pos = initialPos;
             this.dim = dim;
@@ -55,7 +55,7 @@ namespace TileBasedPlatformer.Src
             {
                 sprite.Effect = SpriteEffects.None;
             }
-            sb.Draw(sprite, pos + new Vector2(dim.X + drawXOffset, drawYOffset) / 2, 0, new Vector2(scale, scale));
+            sb.Draw(sprite, pos + new Vector2(dim.x + drawXOffset, drawYOffset) / 2, 0, new Vector2(scale, scale));
         }
 
         public Entity(float initialX, float initialY)
