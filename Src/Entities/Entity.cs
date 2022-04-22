@@ -53,7 +53,9 @@ namespace TileBasedPlatformer.Src
 
             Texture2D texture = sprite.TextureRegion.Texture;
             Rectangle bounds = sprite.TextureRegion.Bounds;
-            sb.Draw(texture, pos + new Vector2(1 * dim.X, 2 * dim.Y) / 2, bounds, sprite.Color * sprite.Alpha, 0, sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, scale, sprite.Effect, sprite.Depth);
+            float xShift = dim.X >= 1 ? dim.X : 1;
+            float yShift = dim.Y >= 1 ? dim.Y : 1;
+            sb.Draw(texture, pos + new Vector2(1 * xShift, 2 * yShift) / 2, bounds, sprite.Color * sprite.Alpha, 0, sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, scale, sprite.Effect, sprite.Depth);
         }
 
         public Entity(float initialX, float initialY)

@@ -38,9 +38,9 @@ namespace TileBasedPlatformer.Src
         {
             List<Tile> neighbours = new List<Tile>();
 
-            for (int x = 0; x < (int)Math.Round(entity.dim.X); x++)
+            for (int x = 0; x < (int)Math.Ceiling(entity.dim.X); x++)
             {
-                for(int y = 0; y < (int)Math.Round(entity.dim.Y); y++)
+                for(int y = 0; y < (int)Math.Ceiling(entity.dim.Y); y++)
                 {
                     List<Tile> tileNeighbours = GetTileNeighbours((Location)entity.pos + new Location(x, y));
                     foreach(var tile in tileNeighbours)
