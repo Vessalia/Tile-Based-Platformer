@@ -26,7 +26,7 @@ namespace TileBasedPlatformer.Src
 
         public virtual Vector2 Pos => pos;
 
-        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed, float scale = -1)
+        public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed, float scale = 1)
         {
             pos = initialPos;
             this.dim = dim;
@@ -35,8 +35,7 @@ namespace TileBasedPlatformer.Src
             this.speed = speed;
             terminalVel = 2 * speed;
 
-            if (scale == -1) this.scale = dim.X;
-            else this.scale = scale;
+            this.scale = dim.X * scale;
         }
 
         public void Draw(SpriteBatch sb)
@@ -54,7 +53,7 @@ namespace TileBasedPlatformer.Src
 
             Texture2D texture = sprite.TextureRegion.Texture;
             Rectangle bounds = sprite.TextureRegion.Bounds;
-            sb.Draw(texture, pos + new Vector2(1, 2) / 2, bounds, sprite.Color * sprite.Alpha, 0, sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, scale, sprite.Effect, sprite.Depth);
+            sb.Draw(texture, pos + new Vector2(1 * dim.X, 2 * dim.Y) / 2, bounds, sprite.Color * sprite.Alpha, 0, sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, scale, sprite.Effect, sprite.Depth);
         }
 
         public Entity(float initialX, float initialY)

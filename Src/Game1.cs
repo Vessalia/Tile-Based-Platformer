@@ -120,7 +120,7 @@ namespace TileBasedPlatformer.Src
             foreach (var slimeAnimManager in slimeAnimManagers)
             {
                 int idx = slimeSpawnIdx.Next(slimeSpawnPos.Count);
-                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(0.35f, 0.35f), slimeAnimManager, 5));
+                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(1, 1), slimeAnimManager, 5));
                 slimeSpawnPos.RemoveAt(idx);
             }
 
