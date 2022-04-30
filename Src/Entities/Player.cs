@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Sprites;
 using TileBasedPlatformer.AnimationSystem;
+using TileBasedPlatformer.Src.Core;
 using TileBasedPlatformer.Src.EntityStateMachine.PlayerState;
 using TileBasedPlatformer.Src.FileManagment;
 using TileBasedPlatformer.Src.InputSystem;
@@ -15,7 +16,7 @@ namespace TileBasedPlatformer.Src.Entities
         private ConfigManager dataManager;
 
         private readonly Vector2 cameraShift = new Vector2(2, 0);
-        public override Vector2 Pos => pos + (facingLeft ? -cameraShift : cameraShift);
+        public override Vector2 TargetPos => pos + (facingLeft ? -cameraShift : cameraShift);
 
         public Player(Vector2 initialPos, Vector2 dim, AnimationManager animManager, IInput input, float speed, float scale) : base (initialPos, dim, animManager, speed, scale)
         {

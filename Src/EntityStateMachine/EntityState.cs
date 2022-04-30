@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.AnimationSystem;
+using TileBasedPlatformer.Src.CombatSystem;
 
 namespace TileBasedPlatformer.Src.EntityStateMachine
 {
@@ -12,12 +14,36 @@ namespace TileBasedPlatformer.Src.EntityStateMachine
         protected Entity entity;
         protected AnimationManager manager;
 
+        protected List<AttackBox> attacks = new List<AttackBox>();
+        protected List<BodyBox> bodies = new List<BodyBox>();
+
         public EntityState(Entity entity, AnimationManager manager)
         {
             this.entity = entity;
             this.manager = manager;
+
+            attacks.Add(new AttackBox(new RectangleF(entity.pos, entity.dim), entity, 0.01f, 10));
+            bodies.Add(new BodyBox(new RectangleF(entity.pos, entity.dim), entity));
         }
 
-        public abstract void Update(float dt);
+        public virtual void Update(float dt, Vector2 pos)
+        {
+            foreach(var attack in attacks)
+            {
+                attack.box.Position = pos;
+            }
+            foreach(var body in bodies)
+            {
+                body.box.Position = pos;
+            }
+        }
+        public List<AttackBox> GetAttackBoxes()
+        {
+            return attacks;
+        }
+        public List<BodyBox> GetBodyBoxes()
+        {
+            return bodies;
+        }
     }
 }

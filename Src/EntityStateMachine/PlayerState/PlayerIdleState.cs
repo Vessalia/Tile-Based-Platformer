@@ -15,10 +15,12 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
         {
             manager.LoadContent("idle");
             Player.vel = Vector2.Zero;
+            Player.zIdx = 0;
         }
 
-        public override void Update(float dt)
+        public override void Update(float dt, Vector2 pos)
         {
+            base.Update(dt, pos);
             HandleInput();
             manager.Update(dt, "idle");
         }

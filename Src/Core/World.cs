@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace TileBasedPlatformer.Src
+namespace TileBasedPlatformer.Src.Core
 {
     public class World
     {

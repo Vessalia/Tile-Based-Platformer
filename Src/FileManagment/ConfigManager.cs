@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TileBasedPlatformer.Src.Core;
 
 namespace TileBasedPlatformer.Src.FileManagment
 {

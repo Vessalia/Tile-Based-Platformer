@@ -13,6 +13,7 @@ namespace TileBasedPlatformer.Src.Entities
         public Enemy(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed) : base(initialPos, dim, animManager, speed)
         {
             state = new EnemyIdleState(this, animManager);
+            zIdx = 1;
         }
     }
 }

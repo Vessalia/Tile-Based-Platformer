@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.AnimationSystem;
+using TileBasedPlatformer.Src.Core;
 using TileBasedPlatformer.Src.Entities;
 
 namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
@@ -21,8 +23,9 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
             manager.LoadContent(anim);
         }
 
-        public override void Update(float dt)
+        public override void Update(float dt, Vector2 pos)
         {
+            base.Update(dt, pos);
             HandleInput();
 
             if (anim.Equals("jump_peak") && timer < manager.GetAnimationDuration())

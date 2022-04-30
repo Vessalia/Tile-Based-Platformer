@@ -6,6 +6,7 @@ using System.Text;
 using MonoGame.Extended.Sprites;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.Entities;
+using TileBasedPlatformer.Src.Core;
 
 namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
 {
@@ -19,8 +20,9 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
             Player.vel.Y = 0;
         }
 
-        public override void Update(float dt)
+        public override void Update(float dt, Vector2 pos)
         {
+            base.Update(dt, pos);
             HandleInput();
             float speed = Player.speed;
             if (Player.IsFacingLeft()) speed *= -1;

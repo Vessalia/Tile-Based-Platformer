@@ -26,32 +26,32 @@
       "frameDuration": 0.1
     },
     "jump": {
-      "frames": [112,112,113],
+      "frames": [112,113],
       "isLooping": false,
-      "frameDuration": 0.09
+      "frameDuration": 0.125
     },
     "jump_peak": {
       "frames": [119,120,121],
       "isLooping": false,
-      "frameDuration": 0.1
+      "frameDuration": 0.05
     },
     "land": {
       "frames": [128,129,130,131],
       "isLooping": false,
-      "frameDuration": 0.1
+      "frameDuration": 0.125
     },
     "roll": {
       "frames": [140,141,142,143,144,145,146,147],
-      "isLooping": false,
+      "isLooping": true,
       "frameDuration": 0.06
     },
     "attack1": {
-      "frames": [168,169,170,171,172,173,174,175,176,177,178],
+      "frames": [168,169,170,171,172,173,174,175],
       "isLooping": false,
       "frameDuration": 0.075
     },
     "attack2": {
-      "frames": [203,204,205,206,207,208,209,210,211,212,213,214],
+      "frames": [203,204,205,206,207,208,209,210,211,212,213],
       "isLooping": false,
       "frameDuration": 0.07
     },
@@ -66,8 +66,8 @@
       "frameDuration": 0.075
     },
     "block": {
-      "frames": [280,281,282,283,284,285,286,287,288,289],
-      "isLooping": false,
+      "frames": [285],
+      "isLooping": true,
       "frameDuration": 0.07
     },
     "hit": {
@@ -79,6 +79,21 @@
       "frames": [336,337,338,339,340,341,342,342,342,342,343,344,345,346,347,348],
       "isLooping": false,
       "frameDuration": 0.125
+    },
+    "attack1_return_to_idle": {
+      "frames": [176,177,178],
+      "isLooping": false,
+      "frameDuration": 0.08
+    },
+    "start_block": {
+      "frames": [280,281,282],
+      "isLooping": false,
+      "frameDuration": 0.07
+    },
+    "stop_block": {
+      "frames": [288,289],
+      "isLooping": false,
+      "frameDuration": 0.07
     }
   }
 }

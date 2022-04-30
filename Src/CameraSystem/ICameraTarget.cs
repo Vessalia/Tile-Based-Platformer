@@ -7,6 +7,6 @@ namespace TileBasedPlatformer.Src.CameraSystem
 {
     internal interface ICameraTarget
     {
-        public Vector2 Pos { get; }
+        public Vector2 TargetPos { get; }
     }
 }

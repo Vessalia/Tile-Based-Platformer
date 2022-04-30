@@ -1,19 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 using System;
+using System.Collections.Generic;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.CameraSystem;
+using TileBasedPlatformer.Src.CombatSystem;
+using TileBasedPlatformer.Src.Core;
 using TileBasedPlatformer.Src.EntityStateMachine;
 
 namespace TileBasedPlatformer.Src
 {
-    public abstract class Entity : ICameraTarget
+    public abstract class Entity : ICameraTarget, ICombat
     {
         protected bool facingLeft = false; 
         protected EntityState state;
 
         protected AnimationManager animManager;
+
+        public int zIdx = 0;
 
         public Vector2 pos;
         public Vector2 vel;
@@ -24,7 +30,9 @@ namespace TileBasedPlatformer.Src
 
         protected float scale;
 
-        public virtual Vector2 Pos => pos;
+        protected float health = 1;
+
+        public virtual Vector2 TargetPos => pos;
 
         public Entity(Vector2 initialPos, Vector2 dim, AnimationManager animManager, float speed, float scale = 1)
         {
@@ -55,7 +63,10 @@ namespace TileBasedPlatformer.Src
             Rectangle bounds = sprite.TextureRegion.Bounds;
             float xShift = dim.X >= 1 ? dim.X : 1;
             float yShift = dim.Y >= 1 ? dim.Y : 1;
-            sb.Draw(texture, pos + new Vector2(1 * xShift, 2 * yShift) / 2, bounds, sprite.Color * sprite.Alpha, 0, sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, scale, sprite.Effect, sprite.Depth);
+            sb.Draw(texture, pos + new Vector2(1 * xShift, 2 * yShift) / 2,
+                    bounds, sprite.Color * sprite.Alpha, 0, 
+                    sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, 
+                    scale, sprite.Effect, sprite.Depth);
         }
 
         public Entity(float initialX, float initialY)
@@ -65,7 +76,7 @@ namespace TileBasedPlatformer.Src
 
         public virtual void Update(float dt)
         {
-            state.Update(dt);
+            state.Update(dt, pos);
 
             int maxSteps = 10;
             for (int step = 0; step < maxSteps; step++)
@@ -105,6 +116,28 @@ namespace TileBasedPlatformer.Src
             {
                 facingLeft = false;
             }
+        }
+
+        public void TakeDamage(AttackBox attack)
+        {
+            health = MathF.Max(health - attack.damage, 0);
+            Vector2 dir = new Vector2(pos.X - attack.box.X, pos.Y - attack.box.Y);
+            vel = attack.knockback * dir;
+        }
+
+        public List<AttackBox> GetAttackBoxes()
+        {
+            return state.GetAttackBoxes();
+        }
+
+        public List<BodyBox> GetBodyBoxes()
+        {
+            return state.GetBodyBoxes();
+        }
+
+        public bool IsDead()
+        {
+            return health <= 0;
         }
     }
 }

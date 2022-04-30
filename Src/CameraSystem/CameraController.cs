@@ -3,6 +3,7 @@ using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TileBasedPlatformer.Src.Core;
 
 namespace TileBasedPlatformer.Src.CameraSystem
 {
@@ -31,7 +32,7 @@ namespace TileBasedPlatformer.Src.CameraSystem
             int numTargets = targets.Count;
             foreach(var target in this.targets)
             {
-                avPos += target.Pos;
+                avPos += target.TargetPos;
             }
             avPos /= numTargets;
 

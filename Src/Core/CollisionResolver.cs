@@ -3,9 +3,10 @@ using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TileBasedPlatformer.Src.CombatSystem;
 using TileBasedPlatformer.Src.Entities;
 
-namespace TileBasedPlatformer.Src
+namespace TileBasedPlatformer.Src.Core
 {
     public enum CollisionSide
     {
@@ -28,6 +29,25 @@ namespace TileBasedPlatformer.Src
                 if(side != null)
                 {
                     return side;
+                }
+            }
+
+            return null;
+        }
+
+        public static AttackBox Attack(ICombat attacker, ICombat defender)
+        {
+            List<AttackBox> attacks = attacker.GetAttackBoxes();
+            List<BodyBox> bodies = defender.GetBodyBoxes();
+
+            foreach(var attack in attacks)
+            {
+                foreach(var body in bodies)
+                {
+                    if(attack.box.Intersects(body.box))
+                    {
+                        return attack;
+                    }
                 }
             }
 
@@ -114,7 +134,7 @@ namespace TileBasedPlatformer.Src
             return side;
         }
 
-        static CollisionSide GetCollisionSide(RectangleF r0, RectangleF r1)
+        private static CollisionSide GetCollisionSide(RectangleF r0, RectangleF r1)
         {
             CollisionSide result;
 

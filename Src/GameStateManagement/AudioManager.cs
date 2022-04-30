@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TileBasedPlatformer.Src.Core;
 using TileBasedPlatformer.Src.FileManagment;
 
 namespace TileBasedPlatformer.Src.GameStateManagement

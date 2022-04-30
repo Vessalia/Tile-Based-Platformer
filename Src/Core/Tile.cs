@@ -1,18 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
+using TileBasedPlatformer.Src.CameraSystem;
 
-namespace TileBasedPlatformer.Src
+namespace TileBasedPlatformer.Src.Core
 {
     public enum TileType
     {
         collider, ladder, spawn, win, empty, slimeSpawn
     }
 
-    public class Tile
+    public class Tile : ICameraTarget
     {
         public Location Pos { get; private set; }
-        public TileType Type { get; private set; } 
+        public TileType Type { get; private set; }
+
+        public Vector2 TargetPos => Pos;
 
         public Tile(Location Pos, TileType Type)
         {

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.Src;
+using TileBasedPlatformer.Src.CombatSystem;
 
 namespace TileBasedPlatformer.AnimationSystem
 {
@@ -40,6 +41,11 @@ namespace TileBasedPlatformer.AnimationSystem
         public AnimatedSprite GetCurrentSprite()
         {
             return sprite;
+        }
+
+        public SpriteSheet GetSpriteSheet()
+        {
+            return spriteSheet;
         }
 
         public float GetAnimationDuration()

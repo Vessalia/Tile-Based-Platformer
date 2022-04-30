@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.AnimationSystem;
@@ -17,8 +18,9 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
             Player.vel.X = 0;
         }
 
-        public override void Update(float dt)
+        public override void Update(float dt, Vector2 pos)
         {
+            base.Update(dt, pos);
             HandleInput();
 
             timer += dt;

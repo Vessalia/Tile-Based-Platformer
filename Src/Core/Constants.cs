@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TileBasedPlatformer.Src
+namespace TileBasedPlatformer.Src.Core
 {
     public static class Constants
     {

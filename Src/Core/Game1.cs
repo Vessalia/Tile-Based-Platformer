@@ -11,11 +11,12 @@ using System.Collections.Generic;
 using System.IO;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.CameraSystem;
+using TileBasedPlatformer.Src.CombatSystem;
 using TileBasedPlatformer.Src.Entities;
 using TileBasedPlatformer.Src.FileManagment;
 using TileBasedPlatformer.Src.InputSystem;
 
-namespace TileBasedPlatformer.Src
+namespace TileBasedPlatformer.Src.Core
 {
     public class Game1 : Game
     {
@@ -29,6 +30,10 @@ namespace TileBasedPlatformer.Src
         private Entity player;
 
         private List<Entity> enemies = new List<Entity>();
+
+        private List<Entity> entities = new List<Entity>();
+
+        private List<ICombat> combatables = new List<ICombat>();
 
         public static Input input;
 
@@ -120,7 +125,7 @@ namespace TileBasedPlatformer.Src
             foreach (var slimeAnimManager in slimeAnimManagers)
             {
                 int idx = slimeSpawnIdx.Next(slimeSpawnPos.Count);
-                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(0.5f, 0.5f), slimeAnimManager, 5));
+                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(1, 1), slimeAnimManager, 5));
                 slimeSpawnPos.RemoveAt(idx);
             }
 
@@ -128,6 +133,11 @@ namespace TileBasedPlatformer.Src
             {
                 //cameraController.AddTargets(enemy);
             }
+
+            entities.Add(player);
+            entities.AddRange(enemies);
+
+            combatables.AddRange(entities);
         }
 
         protected override void Update(GameTime gameTime)
@@ -150,19 +160,38 @@ namespace TileBasedPlatformer.Src
                 cameraController.ZoomOut(dt);
             }
 
-            player.Update(dt);
+            if(!player.IsDead()) player.Update(dt);
 
             foreach(var enemy in enemies)
             {
                 enemy.Update(dt);
             }
 
+            foreach(ICombat combatable in combatables)
+            {
+                foreach(ICombat combatant in combatables)
+                {
+                    if(combatable == combatant) continue;
+                    combatable.DealDamage(combatant);
+                }
+            }
+
+            List<Entity> deadEntities = new List<Entity>();
+            foreach(var entity in entities)
+            {
+                if(entity.IsDead()) deadEntities.Add(entity);
+            }
+
+            entities.RemoveAll(e => deadEntities.Contains(e));
+            enemies.RemoveAll(e => !entities.Contains(e));
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            entities.Sort((entityA, entityB) => entityA.zIdx - entityB.zIdx);
 
             _spriteBatch.Begin(transformMatrix: cameraController.Camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
 
@@ -174,11 +203,9 @@ namespace TileBasedPlatformer.Src
                 }
             }
 
-            player.Draw(_spriteBatch);
-
-            foreach(var enemy in enemies)
+            foreach(var entity in entities)
             {
-                enemy.Draw(_spriteBatch);
+                entity.Draw(_spriteBatch);
             }
 
             _spriteBatch.End();
