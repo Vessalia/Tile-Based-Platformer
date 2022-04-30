@@ -1,32 +1,32 @@
 {
   "textureAtlas": {
-    "texture": "slime-Sheet.png",
+    "texture": "..\\..\\..\\..\\..\\OneDrive - University of Manitoba\\Desktop\\platformer_assets\\slime-Sheet-rectified.png",
     "regionWidth": 32,
     "regionHeight": 25
   },
   "cycles": {
     "idle": {
-      "frames": [0,1,2,3],
+      "frames": [7,6,5,4],
       "isLooping": true,
       "frameDuration": 0.2
     },
-    "animation1": {
-      "frames": [4,5,6,7],
+    "run": {
+      "frames": [3,2,1,0],
       "isLooping": true,
       "frameDuration": 0.1
     },
     "attack1": {
-      "frames": [8,9,10,11,12],
+      "frames": [15,14,13,12,11],
       "isLooping": false,
       "frameDuration": 0.08
     },
     "hit": {
-      "frames": [13,14,15],
+      "frames": [10,9,8],
       "isLooping": false,
       "frameDuration": 0.1
     },
     "death": {
-      "frames": [16,16,17,18,19,20,20,20],
+      "frames": [23,23,22,21,20,19,19,19],
       "isLooping": false,
       "frameDuration": 0.1
     }

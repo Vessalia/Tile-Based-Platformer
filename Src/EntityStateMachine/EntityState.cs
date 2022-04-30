@@ -22,7 +22,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachine
             this.entity = entity;
             this.manager = manager;
 
-            attacks.Add(new AttackBox(new RectangleF(entity.pos, entity.dim), entity, 0.01f, 10));
+            attacks.Add(new AttackBox(new RectangleF(entity.pos, entity.dim), entity, 0.000001f, 4));
             bodies.Add(new BodyBox(new RectangleF(entity.pos, entity.dim), entity));
         }
 

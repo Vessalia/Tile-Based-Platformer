@@ -20,6 +20,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.EnemyState
         {
             base.Update(dt, pos);
             HandleInput();
+            Enemy.vel.X = 0;
             manager.Update(dt, "idle");
         }
 

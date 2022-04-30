@@ -69,5 +69,10 @@ namespace TileBasedPlatformer.Src.Entities
         {
             return input.IsKeyUp(dataManager.GetKeyBinding(key));
         }
+
+        public override void SetStunned()
+        {
+            SetState(new PlayerStunnedState(this, animManager));
+        }
     }
 }

@@ -121,8 +121,10 @@ namespace TileBasedPlatformer.Src
         public void TakeDamage(AttackBox attack)
         {
             health = MathF.Max(health - attack.damage, 0);
-            Vector2 dir = new Vector2(pos.X - attack.box.X, pos.Y - attack.box.Y);
+            Vector2 dir = new Vector2(pos.X - attack.box.X, attack.box.Y - pos.Y);
             vel = attack.knockback * dir;
+            facingLeft = dir.X > 0;
+            SetStunned();
         }
 
         public List<AttackBox> GetAttackBoxes()
@@ -139,5 +141,7 @@ namespace TileBasedPlatformer.Src
         {
             return health <= 0;
         }
+
+        public abstract void SetStunned();
     }
 }

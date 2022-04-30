@@ -14,14 +14,15 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
         public PlayerIdleState(Player entity, AnimationManager manager) : base(entity, manager) 
         {
             manager.LoadContent("idle");
-            Player.vel = Vector2.Zero;
-            Player.zIdx = 0;
+            Player.vel.X = 0;
+            Player.zIdx = 2;
         }
 
         public override void Update(float dt, Vector2 pos)
         {
             base.Update(dt, pos);
             HandleInput();
+            Player.vel.X = 0;
             manager.Update(dt, "idle");
         }
 

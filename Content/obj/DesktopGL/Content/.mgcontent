@@ -5,7 +5,7 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/Nathan/source/repos/TileBasedPlatformer/TileBasedPlatformer/Content/fireknight.png</File>
-    <File>C:/Users/Nathan/source/repos/TileBasedPlatformer/TileBasedPlatformer/Content/slime-Sheet.png</File>
+    <File>C:/Users/Nathan/source/repos/TileBasedPlatformer/TileBasedPlatformer/Content/slime-Sheet-rectified.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

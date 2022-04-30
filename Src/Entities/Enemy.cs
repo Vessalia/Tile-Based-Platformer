@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.EntityStateMachine.EnemyState;
+using TileBasedPlatformer.Src.PhysicsSystems;
 
 namespace TileBasedPlatformer.Src.Entities
 {
@@ -14,6 +15,18 @@ namespace TileBasedPlatformer.Src.Entities
         {
             state = new EnemyIdleState(this, animManager);
             zIdx = 1;
+            facingLeft = true;
+        }
+
+        public override void Update(float dt)
+        {
+            base.Update(dt);
+            GravitySystem.Update(this, dt);
+        }
+
+        public override void SetStunned()
+        {
+            SetState(new EnemyStunnedState(this, animManager));
         }
     }
 }
