@@ -16,6 +16,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
             manager.LoadContent("idle");
             Player.vel.X = 0;
             Player.zIdx = 2;
+            attacks.Clear();
         }
 
         public override void Update(float dt, Vector2 pos)

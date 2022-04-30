@@ -31,6 +31,8 @@ namespace TileBasedPlatformer.Src
         protected float scale;
 
         protected float health = 1;
+        protected bool canStartDying = true;
+        public bool isDead = false;
 
         public virtual Vector2 TargetPos => pos;
 
@@ -61,9 +63,7 @@ namespace TileBasedPlatformer.Src
 
             Texture2D texture = sprite.TextureRegion.Texture;
             Rectangle bounds = sprite.TextureRegion.Bounds;
-            float xShift = dim.X >= 1 ? dim.X : 1;
-            float yShift = dim.Y >= 1 ? dim.Y : 1;
-            sb.Draw(texture, pos + new Vector2(1 * xShift, 2 * yShift) / 2,
+            sb.Draw(texture, pos + new Vector2(1 * dim.X, 2 * dim.Y) / 2,
                     bounds, sprite.Color * sprite.Alpha, 0, 
                     sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, 
                     scale, sprite.Effect, sprite.Depth);
@@ -76,9 +76,15 @@ namespace TileBasedPlatformer.Src
 
         public virtual void Update(float dt)
         {
+            if (health <= 0 && canStartDying)
+            {
+                SetDead();
+                canStartDying = false;
+            }
+
             state.Update(dt, pos);
 
-            int maxSteps = 10;
+            int maxSteps = 20;
             for (int step = 0; step < maxSteps; step++)
             {
                 pos.X += vel.X * dt / maxSteps;
@@ -139,9 +145,10 @@ namespace TileBasedPlatformer.Src
 
         public bool IsDead()
         {
-            return health <= 0;
+            return health <= 0 && isDead;
         }
 
         public abstract void SetStunned();
+        public abstract void SetDead();
     }
 }

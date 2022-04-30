@@ -5,18 +5,20 @@ using System.Text;
 using TileBasedPlatformer.AnimationSystem;
 using TileBasedPlatformer.Src.Entities;
 
-namespace TileBasedPlatformer.Src.EntityStateMachine.EnemyState
+namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
 {
-    internal class EnemyStunnedState : EntityState
+    internal class PlayerDeathState : EntityState
     {
-        private Enemy Enemy { get { return (Enemy)entity; } }
+        private Player Player { get { return (Player)entity; } }
         private float timer = 0;
 
-        public EnemyStunnedState(Entity entity, AnimationManager manager) : base(entity, manager)
+        public PlayerDeathState(Entity entity, AnimationManager manager) : base(entity, manager)
         {
-            manager.LoadContent("hit");
+            manager.LoadContent("death");
+            Player.zIdx = 10;
+
             attacks.Clear();
-            Enemy.zIdx = 0;
+            bodies.Clear();
         }
 
         public override void Update(float dt, Vector2 pos)
@@ -25,10 +27,10 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.EnemyState
             timer += dt;
             if (manager.GetAnimationDuration() <= timer)
             {
-                Enemy.SetState(new EnemyIdleState(Enemy, manager));
+                Player.isDead = true;
                 return;
             }
-            manager.Update(dt, "hit");
+            manager.Update(dt, "death");
         }
     }
 }

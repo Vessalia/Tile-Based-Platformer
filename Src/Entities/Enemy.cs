@@ -24,9 +24,7 @@ namespace TileBasedPlatformer.Src.Entities
             GravitySystem.Update(this, dt);
         }
 
-        public override void SetStunned()
-        {
-            SetState(new EnemyStunnedState(this, animManager));
-        }
+        public override void SetStunned() => SetState(new EnemyStunnedState(this, animManager));
+        public override void SetDead() => SetState(new EnemyDeathState(this, animManager));
     }
 }

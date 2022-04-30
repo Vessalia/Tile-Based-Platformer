@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.AnimationSystem;
+using TileBasedPlatformer.Src.CombatSystem;
 using TileBasedPlatformer.Src.Core;
 using TileBasedPlatformer.Src.Entities;
 
@@ -21,6 +23,12 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
             if (Player.vel.Y > 0) anim = "rising";
             else anim = "falling";
             manager.LoadContent(anim);
+
+            attacks.Clear();
+            bodies.Clear();
+
+            attacks.Add(new AttackBox(new RectangleF(Player.pos, Player.dim - new Vector2(0, 0.4f)), Player, 1, 4));
+            bodies.Add(new BodyBox(new RectangleF(Player.pos - new Vector2(0, 1), Player.dim - new Vector2(0, 0.6f)), Player));
         }
 
         public override void Update(float dt, Vector2 pos)
@@ -59,7 +67,15 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
 
             float epsilon = 0.001f;
             Player.pos.Y += epsilon;
-            if (CollisionResolver.Resolve(entity, false) == CollisionSide.Top) Player.SetState(new PlayerLandingState(Player, manager));
+            if (CollisionResolver.Resolve(entity, false) == CollisionSide.Top)
+            {
+                attacks.Clear();
+                bodies.Clear();
+                bodies.Add(new BodyBox(new RectangleF(Player.pos, Player.dim), Player));
+
+                Player.SetState(new PlayerLandingState(Player, manager));
+                return;
+            }
             else Player.pos.Y -= epsilon;
 
             manager.Update(dt, anim);

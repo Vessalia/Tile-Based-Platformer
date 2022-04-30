@@ -7,28 +7,35 @@ using TileBasedPlatformer.Src.Entities;
 
 namespace TileBasedPlatformer.Src.EntityStateMachine.EnemyState
 {
-    internal class EnemyStunnedState : EntityState
+    internal class EnemyDeathState : EntityState
     {
         private Enemy Enemy { get { return (Enemy)entity; } }
         private float timer = 0;
 
-        public EnemyStunnedState(Entity entity, AnimationManager manager) : base(entity, manager)
+        public EnemyDeathState(Entity entity, AnimationManager manager) : base(entity, manager)
         {
-            manager.LoadContent("hit");
+            manager.LoadContent("death");
             attacks.Clear();
-            Enemy.zIdx = 0;
+            Enemy.zIdx = -1;
+            Enemy.vel = Vector2.Zero;
+
+            attacks.Clear();
+            bodies.Clear();
         }
 
         public override void Update(float dt, Vector2 pos)
         {
             base.Update(dt, pos);
+
             timer += dt;
-            if (manager.GetAnimationDuration() <= timer)
+
+            manager.Update(dt, "death");
+
+            if (manager.GetAnimationDuration() < timer)
             {
-                Enemy.SetState(new EnemyIdleState(Enemy, manager));
+                Enemy.isDead = true;
                 return;
             }
-            manager.Update(dt, "hit");
         }
     }
 }

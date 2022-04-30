@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.AnimationSystem;
+using TileBasedPlatformer.Src.CombatSystem;
 using TileBasedPlatformer.Src.Entities;
 
 namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState

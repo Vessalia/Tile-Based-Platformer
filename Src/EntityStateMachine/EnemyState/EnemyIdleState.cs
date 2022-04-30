@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using TileBasedPlatformer.AnimationSystem;
+using TileBasedPlatformer.Src.CombatSystem;
 using TileBasedPlatformer.Src.Entities;
 
 namespace TileBasedPlatformer.Src.EntityStateMachine.EnemyState
@@ -15,6 +17,8 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.EnemyState
         {
             manager.LoadContent("idle");
             Enemy.vel = Vector2.Zero;
+
+            attacks.Add(new AttackBox(new RectangleF(entity.pos, entity.dim), entity, 0.000001f, 4));
         }
         public override void Update(float dt, Vector2 pos)
         {

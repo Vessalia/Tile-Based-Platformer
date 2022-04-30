@@ -17,7 +17,6 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
         public PlayerRunningState(Player entity, AnimationManager manager) : base(entity, manager) 
         {
             manager.LoadContent("run");
-            Player.vel.Y = 0;
         }
 
         public override void Update(float dt, Vector2 pos)
