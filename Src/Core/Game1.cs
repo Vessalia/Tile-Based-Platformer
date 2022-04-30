@@ -171,7 +171,7 @@ namespace TileBasedPlatformer.Src.Core
             {
                 foreach(ICombat combatant in combatables)
                 {
-                    if(combatable == combatant) continue;
+                    if(combatable == combatant || !combatant.IsAttackable()) continue;
                     combatable.DealDamage(combatant);
                 }
             }

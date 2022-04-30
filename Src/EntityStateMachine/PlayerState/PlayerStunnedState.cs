@@ -24,7 +24,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
             timer += dt;
             if (manager.GetAnimationDuration() <= timer)
             {
-                Player.SetState(new PlayerIdleState(Player, manager));
+                Player.SetState(new PlayerFreeFallState(Player, manager));
                 return;
             }
             manager.Update(dt, "hit");

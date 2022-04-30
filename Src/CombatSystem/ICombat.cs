@@ -20,5 +20,7 @@ namespace TileBasedPlatformer.Src.CombatSystem
         public void TakeDamage(AttackBox attack);
         public List<AttackBox> GetAttackBoxes();
         public List<BodyBox> GetBodyBoxes();
+
+        public bool IsAttackable();
     }
 }

@@ -25,6 +25,12 @@ namespace TileBasedPlatformer.Src.Entities
         }
 
         public override void SetStunned() => SetState(new EnemyStunnedState(this, animManager));
+
         public override void SetDead() => SetState(new EnemyDeathState(this, animManager));
+
+        public override bool IsAttackable()
+        {
+            return !(state is EnemyStunnedState);
+        }
     }
 }

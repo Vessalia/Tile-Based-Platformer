@@ -128,6 +128,8 @@ namespace TileBasedPlatformer.Src
         {
             health = MathF.Max(health - attack.damage, 0);
             Vector2 dir = new Vector2(pos.X - attack.box.X, attack.box.Y - pos.Y);
+            dir.Normalize();
+            if (dir.Y > 0) dir.Y *= 1.2f;
             vel = attack.knockback * dir;
             facingLeft = dir.X > 0;
             SetStunned();
@@ -150,5 +152,6 @@ namespace TileBasedPlatformer.Src
 
         public abstract void SetStunned();
         public abstract void SetDead();
+        public abstract bool IsAttackable();
     }
 }

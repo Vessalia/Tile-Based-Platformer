@@ -18,7 +18,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.EnemyState
             manager.LoadContent("idle");
             Enemy.vel = Vector2.Zero;
 
-            attacks.Add(new AttackBox(new RectangleF(entity.pos, entity.dim), entity, 0.000001f, 4));
+            attacks.Add(new AttackBox(new RectangleF(entity.pos, entity.dim), entity, 0.000001f, 8));
         }
         public override void Update(float dt, Vector2 pos)
         {
