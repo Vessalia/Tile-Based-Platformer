@@ -67,6 +67,7 @@ namespace TileBasedPlatformer.Src
                     bounds, sprite.Color * sprite.Alpha, 0, 
                     sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, 
                     scale, sprite.Effect, sprite.Depth);
+            state.Draw(sb);
         }
 
         public Entity(float initialX, float initialY)
@@ -84,7 +85,7 @@ namespace TileBasedPlatformer.Src
 
             state.Update(dt, pos);
 
-            int maxSteps = 20;
+            int maxSteps = 1;
             for (int step = 0; step < maxSteps; step++)
             {
                 pos.X += vel.X * dt / maxSteps;

@@ -167,12 +167,19 @@ namespace TileBasedPlatformer.Src.Core
                 enemy.Update(dt);
             }
 
-            foreach(ICombat combatable in combatables)
+            foreach(ICombat combatant in combatables)
             {
-                foreach(ICombat combatant in combatables)
+                if (combatant == player || !combatant.IsAttackable()) continue;
+                ((ICombat)player).DealDamage(combatant);
+            }
+
+            foreach(ICombat combatant in combatables)
+            {
+                if (combatant == player) continue;
+                foreach(ICombat combatable in combatables)
                 {
-                    if(combatable == combatant || !combatant.IsAttackable()) continue;
-                    combatable.DealDamage(combatant);
+                    if(combatable == combatant || !combatable.IsAttackable()) continue;
+                    combatant.DealDamage(combatable);
                 }
             }
 

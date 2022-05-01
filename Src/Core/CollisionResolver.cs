@@ -122,12 +122,12 @@ namespace TileBasedPlatformer.Src.Core
                 if (side == CollisionSide.Top)
                 {
                     entity.pos.Y = collisionTile.Pos.y - entity.dim.Y;
-                    entity.vel.Y = 0;
+                    if(entity.vel.Y < 0) entity.vel.Y = 0;
                 }
                 else if(side == CollisionSide.Bottom)
                 {
                     entity.pos.Y = collisionTile.Pos.y + entity.dim.Y;
-                    entity.vel.Y = 0;
+                    if(entity.vel.Y > 0) entity.vel.Y = 0;
                 }
             }
 
