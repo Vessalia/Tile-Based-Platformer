@@ -67,12 +67,6 @@ namespace TileBasedPlatformer.Src
                     bounds, sprite.Color * sprite.Alpha, 0, 
                     sprite.Origin + new Vector2(0, sprite.TextureRegion.Height) / 2, 
                     scale, sprite.Effect, sprite.Depth);
-            state.Draw(sb);
-        }
-
-        public Entity(float initialX, float initialY)
-        {
-            pos = new Vector2(initialX, initialY);
         }
 
         public virtual void Update(float dt)
@@ -103,11 +97,6 @@ namespace TileBasedPlatformer.Src
             this.state = state;
         }
 
-        public void SetFacingLeft(bool facingLeft)
-        {
-            this.facingLeft = facingLeft;
-        }
-
         public bool IsFacingLeft()
         {
             return facingLeft;
@@ -115,11 +104,11 @@ namespace TileBasedPlatformer.Src
 
         public void SetDir(int dir)
         {
-            if (dir == -1)
+            if (dir <= -1)
             {
                 facingLeft = true;
             }
-            else if (dir == 1)
+            else if (dir >= 1)
             {
                 facingLeft = false;
             }

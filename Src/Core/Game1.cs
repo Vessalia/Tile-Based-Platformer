@@ -52,11 +52,11 @@ namespace TileBasedPlatformer.Src.Core
             "#........................#...#\n" +
             "#...........1.........####...#\n" +
             "#.......H#########...........#\n" +
-            "#..S....H....................#\n" +
+            "#.......H....................#\n" +
             "#.......H....................#\n" +
             "#.......H......1......1......#\n" +
             "#....####....####....####....#\n" +
-            "#..........................1.#\n" +
+            "#.S........................1.#\n" +
             "##############################"   ;
 
         public Game1()
@@ -125,7 +125,7 @@ namespace TileBasedPlatformer.Src.Core
             foreach (var slimeAnimManager in slimeAnimManagers)
             {
                 int idx = slimeSpawnIdx.Next(slimeSpawnPos.Count);
-                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(1, 0.5f), slimeAnimManager, 5));
+                enemies.Add(new Enemy(slimeSpawnPos[idx], new Vector2(1, 0.5f), slimeAnimManager, 2, 20));
                 slimeSpawnPos.RemoveAt(idx);
             }
 
@@ -164,6 +164,7 @@ namespace TileBasedPlatformer.Src.Core
 
             foreach(var enemy in enemies)
             {
+                ((Enemy)enemy).CheckAggro(player.pos);
                 enemy.Update(dt);
             }
 

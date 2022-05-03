@@ -25,21 +25,6 @@ namespace TileBasedPlatformer.Src.EntityStateMachine
             bodies.Add(new BodyBox(new RectangleF(entity.pos, entity.dim), entity, Vector2.Zero));
         }
 
-        public void Draw(SpriteBatch sb)
-        {
-            List<AttackBox> attackBoxes = GetAttackBoxes();
-            List<BodyBox> bodies = GetBodyBoxes();
-
-            for (int i = 0; i < bodies.Count; i++)
-            {
-                sb.FillRectangle(bodies[i].box, Color.Black);
-            }
-            for(int i = 0; i < attackBoxes.Count; i++)
-            {
-                sb.FillRectangle(attackBoxes[i].box, Color.Green);
-            }
-        }
-
         public virtual void Update(float dt, Vector2 pos)
         {
             foreach(var attack in attacks)

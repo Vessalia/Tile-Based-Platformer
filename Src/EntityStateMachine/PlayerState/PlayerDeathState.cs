@@ -16,6 +16,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
         {
             manager.LoadContent("death");
             Player.zIdx = 10;
+            Player.vel.X = 0;
 
             attacks.Clear();
             bodies.Clear();

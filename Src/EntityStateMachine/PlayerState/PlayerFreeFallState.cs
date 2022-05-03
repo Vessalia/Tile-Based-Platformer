@@ -27,8 +27,8 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
             attacks.Clear();
             bodies.Clear();
 
-            attacks.Add(new AttackBox(new RectangleF(Player.pos, Player.dim - new Vector2(0, 0.8f)), Player, 1, 4, new Vector2(0, 0.8f)));
-            bodies.Add(new BodyBox(new RectangleF(Player.pos, Player.dim - new Vector2(0, 0.2f)), Player, Vector2.Zero));
+            attacks.Add(new AttackBox(new RectangleF(Player.pos, Player.dim - new Vector2(0.4f, 0.8f)), Player, 1, 4, new Vector2(0, 0.8f)));
+            bodies.Add(new BodyBox(new RectangleF(Player.pos, Player.dim - new Vector2(0.4f, 0.2f)), Player, Vector2.Zero));
         }
 
         public override void Update(float dt, Vector2 pos)
@@ -71,7 +71,7 @@ namespace TileBasedPlatformer.Src.EntityStateMachine.PlayerState
             {
                 attacks.Clear();
                 bodies.Clear();
-                bodies.Add(new BodyBox(new RectangleF(Player.pos, Player.dim), Player, Vector2.Zero));
+                bodies.Add(new BodyBox(new RectangleF(Player.pos, Player.dim - new Vector2(0.4f, 0)), Player, Vector2.Zero));
 
                 Player.SetState(new PlayerLandingState(Player, manager));
                 return;
